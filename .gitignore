@@ -1,0 +1,5 @@
+# Ignorar el contenido de la carpeta config
+application/config/config.php
+application/config/database.php
+assets/dinamic/
+angular/config.js
