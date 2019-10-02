@@ -1,11 +1,9 @@
 app.controller('ServicioCtrl', ['$scope', '$filter', '$uibModal', '$bootbox', '$log', '$timeout', 'pinesNotifications', 'uiGridConstants', 'blockUI', 
 	'ServicioFactory',
 	'ServicioServices',
-	'CategoriaElementoServices', 
 	function($scope, $filter, $uibModal, $bootbox, $log, $timeout, pinesNotifications, uiGridConstants, blockUI, 
 	ServicioFactory,
-	ServicioServices,
-	CategoriaElementoServices
+	ServicioServices
 	) {
 		$scope.metodos = {}; // contiene todas las funciones 
 		$scope.fArr = {}; // contiene todos los arrays generados por las funciones 
@@ -15,18 +13,18 @@ app.controller('ServicioCtrl', ['$scope', '$filter', '$uibModal', '$bootbox', '$
 		  $scope.gridApi.core.notifyDataChange( uiGridConstants.dataChange.COLUMN );
 		};
 		// TIPOS DE ELEMENTO 
-	  $scope.fArr.listaTipoElemento = [ 
-	    {'id' : 'P', 'descripcion' : 'PRODUCTO'},
-	    {'id' : 'S', 'descripcion' : 'SERVICIO'}
-	  ]; 
+	  // $scope.fArr.listaTipoElemento = [ 
+	  //   {'id' : 'P', 'descripcion' : 'PRODUCTO'},
+	  //   {'id' : 'S', 'descripcion' : 'SERVICIO'}
+	  // ]; 
 		// CATEGORIAS DE ELEMENTOS 
-		$scope.metodos.listaCategoriasElemento = function(myCallback) {
-			var myCallback = myCallback || function() { };
-			CategoriaElementoServices.sListarCbo().then(function(rpta) {
-				$scope.fArr.listaCategoriasElemento = rpta.datos; 
-				myCallback();
-			});
-		};
+		// $scope.metodos.listaCategoriasElemento = function(myCallback) {
+		// 	var myCallback = myCallback || function() { };
+		// 	CategoriaElementoServices.sListarCbo().then(function(rpta) {
+		// 		$scope.fArr.listaCategoriasElemento = rpta.datos; 
+		// 		myCallback();
+		// 	});
+		// };
 
 		var paginationOptions = {
       pageNumber: 1,
@@ -50,13 +48,33 @@ app.controller('ServicioCtrl', ['$scope', '$filter', '$uibModal', '$bootbox', '$
 	    enableFullRowSelection: true,
 	    multiSelect: false,
 	    columnDefs: [ 
-	      { field: 'id', name: 'el.idelemento', displayName: 'ID', width: '75',  sort: { direction: uiGridConstants.DESC} },
-	      { field: 'descripcion_ele', name: 'el.descripcion_ele', displayName: 'Servicio', minWidth: 160 },
-	      { field: 'precio_referencial', name: 'el.precio_referencial', displayName: 'Precio Ref.', minWidth: 100 },
-	      { field: 'categoria_elemento', type: 'object', name: 'cael.descripcion_cael', displayName: 'Categoria', minWidth: 80, enableColumnMenus: false, enableColumnMenu: false, 
-	          cellTemplate:'<div class="ui-grid-cell-contents text-center ">'+ 
-	            '<label class="label bg-primary block" style="background-color:{{COL_FIELD.color}}">{{ COL_FIELD.descripcion }}</label></div>' 
-	      }
+	      { field: 'idservicio', name: 'se.idservicio', displayName: 'ID', width: '75',  sort: { direction: uiGridConstants.DESC} },
+	      { field: 'nombre', name: 'se.nombre', displayName: 'Nombre', minWidth: 160 },
+	      { field: 'alias', name: 'se.alias', displayName: 'URI', minWidth: 100 },
+        { field: 'embed_obj', type: 'object', name: 'embed_obj', displayName: 'MULTIMEDIA', width: '140', enableFiltering: false, enableSorting: false, enableColumnMenus: false, enableColumnMenu: false, 
+          cellTemplate:'<div class="ui-grid-cell-contents">' + 
+            '<label ng-if="COL_FIELD.video" tooltip-placement="left" tooltip="{{ COL_FIELD.labelText }}" class=" label {{ COL_FIELD.claseLabel }} ml-xs">'+ 
+            ' {{COL_FIELD.labelText}} </label>'+ 
+            '</div>' 
+        },
+	      { field: 'visible_obj', type: 'object', name: 'visible_obj', displayName: 'VISIBLE', width: '140', enableFiltering: false, enableSorting: false, enableColumnMenus: false, enableColumnMenu: false, 
+          cellTemplate:'<div class="ui-grid-cell-contents">' + 
+            '<label tooltip-placement="left" tooltip="{{ COL_FIELD.labelText }}" class=" label {{ COL_FIELD.claseLabel }} ml-xs">'+ 
+            ' {{COL_FIELD.labelText}} </label>'+ 
+            '</div>' 
+        },
+        { field: 'visible_menu_obj', type: 'object', name: 'visible_menu_obj', displayName: 'VISIBLE EN MENÚ', width: '140', enableFiltering: false, enableSorting: false, enableColumnMenus: false, enableColumnMenu: false, 
+          cellTemplate:'<div class="ui-grid-cell-contents">' + 
+            '<label tooltip-placement="left" tooltip="{{ COL_FIELD.labelText }}" class=" label {{ COL_FIELD.claseLabel }} ml-xs">'+ 
+            ' {{COL_FIELD.labelText}} </label>'+ 
+            '</div>' 
+        },
+        { field: 'visible_esp_obj', type: 'object', name: 'visible_esp_obj', displayName: 'VISIBLE EN ESP.', width: '140', enableFiltering: false, enableSorting: false, enableColumnMenus: false, enableColumnMenu: false, 
+          cellTemplate:'<div class="ui-grid-cell-contents">' + 
+            '<label tooltip-placement="left" tooltip="{{ COL_FIELD.labelText }}" class=" label {{ COL_FIELD.claseLabel }} ml-xs">'+ 
+            ' {{COL_FIELD.labelText}} </label>'+ 
+            '</div>' 
+        }
 	    ],
 	    onRegisterApi: function(gridApi) { 
 	      $scope.gridApi = gridApi;
@@ -86,10 +104,9 @@ app.controller('ServicioCtrl', ['$scope', '$filter', '$uibModal', '$bootbox', '$
 	        var grid = this.grid;
 	        paginationOptions.search = true; 
 	        paginationOptions.searchColumn = {
-	          'el.idelemento' : grid.columns[1].filters[0].term,
-	          'el.descripcion_ele' : grid.columns[2].filters[0].term,
-	          'el.precio_referencial' : grid.columns[3].filters[0].term,
-	          'cael.descripcion_cael' : grid.columns[4].filters[0].term 
+	          'se.idservicio' : grid.columns[1].filters[0].term,
+	          'se.nombre' : grid.columns[2].filters[0].term,
+	          'se.alias' : grid.columns[3].filters[0].term
 	        }
 	        $scope.metodos.getPaginationServerSide();
 	      });
@@ -137,7 +154,7 @@ app.controller('ServicioCtrl', ['$scope', '$filter', '$uibModal', '$bootbox', '$
 	    $bootbox.confirm(pMensaje, function(result) {
 	      if(result){
 	        var arrParams = {
-	          id: $scope.mySelectionGrid[0].id 
+	          idservicio: $scope.mySelectionGrid[0].idservicio 
 	        };
 	        blockUI.start('Procesando información...');
 	        ServicioServices.sAnular(arrParams).then(function (rpta) {
@@ -161,40 +178,44 @@ app.controller('ServicioCtrl', ['$scope', '$filter', '$uibModal', '$bootbox', '$
 
 app.service("ServicioServices",function($http, $q, handleBehavior) {
     return({
-        sListar: sListar,
-        sRegistrar: sRegistrar,
-        sEditar: sEditar,
-        sAnular: sAnular
+      sListar: sListar,
+      sRegistrar: sRegistrar,
+      sEditar: sEditar,
+      sAnular: sAnular
     });
     function sListar(datos) {
       var request = $http({
-            method : "post",
-            url : angular.patchURLCI+"Servicio/listar_servicio",
-            data : datos
+        method : "post",
+        url : angular.patchURLCI+"Servicio/listar",
+        data : datos
       });
       return (request.then(handleBehavior.success,handleBehavior.error));
     }
     function sRegistrar (datos) {
       var request = $http({
-            method : "post",
-            url : angular.patchURLCI+"Servicio/registrar",
-            data : datos
+        method : "post",
+        url : angular.patchURLCI+"Servicio/registrar",
+        data : datos,
+        transformRequest: angular.identity,
+        headers: {'Content-Type': undefined}
       });
       return (request.then(handleBehavior.success,handleBehavior.error));
     }
     function sEditar (datos) {
       var request = $http({
-            method : "post",
-            url : angular.patchURLCI+"Servicio/editar",
-            data : datos
+        method : "post",
+        url : angular.patchURLCI+"Servicio/editar",
+        data : datos,
+        transformRequest: angular.identity,
+        headers: {'Content-Type': undefined}
       });
       return (request.then(handleBehavior.success,handleBehavior.error));
     }
     function sAnular (datos) {
       var request = $http({
-            method : "post",
-            url : angular.patchURLCI+"Servicio/anular",
-            data : datos
+        method : "post",
+        url : angular.patchURLCI+"Servicio/anular",
+        data : datos
       });
       return (request.then(handleBehavior.success,handleBehavior.error));
     }
@@ -219,21 +240,25 @@ app.factory("ServicioFactory", function($uibModal, pinesNotifications, blockUI, 
 	      	  $uibModalInstance.dismiss('cancel');
 	      	}
 	      	// BINDEO TIPO DE ELEMENTO 
-	      	var objIndex = $scope.fArr.listaTipoElemento.filter(function(obj) { 
-            return obj.id == 'S';
-          }).shift(); 
-          $scope.fData.tipo_elemento = objIndex; 
+	      	// var objIndex = $scope.fArr.listaTipoElemento.filter(function(obj) { 
+        //     return obj.id == 'S';
+        //   }).shift(); 
+        //   $scope.fData.tipo_elemento = objIndex; 
 
 	      	// BINDEO CATEGORIA DE ELEMENTO 
-	      	var myCallBackCC = function() { 
-	      		$scope.fArr.listaCategoriasElemento.splice(0,0,{ id : '0', descripcion:'--Seleccione categoría de servicio--'}); 
-	      		$scope.fData.categoria_elemento = $scope.fArr.listaCategoriasElemento[0]; 
-	      	}
-	      	$scope.metodos.listaCategoriasElemento(myCallBackCC); 
+	      	// var myCallBackCC = function() { 
+	      	// 	$scope.fArr.listaCategoriasElemento.splice(0,0,{ id : '0', descripcion:'--Seleccione categoría de servicio--'}); 
+	      	// 	$scope.fData.categoria_elemento = $scope.fArr.listaCategoriasElemento[0]; 
+	      	// }
+	      	// $scope.metodos.listaCategoriasElemento(myCallBackCC); 
 
 	      	$scope.aceptar = function () { 
 	      		blockUI.start('Procesando información...');
-	          ServicioServices.sRegistrar($scope.fData).then(function (rpta) {
+	      		var formData = new FormData();
+            angular.forEach($scope.fData,function (index,val) { 
+              formData.append(val,index);
+            });
+	          ServicioServices.sRegistrar(formData).then(function (rpta) {
 	            if(rpta.flag == 1){
 	              var pTitle = 'OK!';
 	              var pType = 'success';
@@ -281,23 +306,27 @@ app.factory("ServicioFactory", function($uibModal, pinesNotifications, blockUI, 
 	      	  $uibModalInstance.dismiss('cancel');
 	      	}
 	      	// BINDEO TIPO DE ELEMENTO 
-	      	var objIndex = $scope.fArr.listaTipoElemento.filter(function(obj) { 
-            return obj.id == $scope.fData.tipo_elemento.id;
-          }).shift(); 
-          $scope.fData.tipo_elemento = objIndex; 
+	      	// var objIndex = $scope.fArr.listaTipoElemento.filter(function(obj) { 
+        //     return obj.id == $scope.fData.tipo_elemento.id;
+        //   }).shift(); 
+        //   $scope.fData.tipo_elemento = objIndex; 
 
 	      	// BINDEO CATEGORIA DE ELEMENTO 
-	      	var myCallBackCC = function() { 
-	      		var objIndex = $scope.fArr.listaCategoriasElemento.filter(function(obj) { 
-	            return obj.id == $scope.fData.categoria_elemento.id;
-	          }).shift(); 
-	      		$scope.fData.categoria_elemento = objIndex; 
-	      	}
-	      	$scope.metodos.listaCategoriasElemento(myCallBackCC); 
+	      	// var myCallBackCC = function() { 
+	      	// 	var objIndex = $scope.fArr.listaCategoriasElemento.filter(function(obj) { 
+	       //      return obj.id == $scope.fData.categoria_elemento.id;
+	       //    }).shift(); 
+	      	// 	$scope.fData.categoria_elemento = objIndex; 
+	      	// }
+	      	// $scope.metodos.listaCategoriasElemento(myCallBackCC); 
 
 	      	$scope.aceptar = function () { 
 	      		blockUI.start('Procesando información...');
-	          ServicioServices.sEditar($scope.fData).then(function (rpta) {
+	      		var formData = new FormData();
+            angular.forEach($scope.fData,function (index,val) { 
+              formData.append(val,index);
+            });
+	          ServicioServices.sEditar(formData).then(function (rpta) {
 	            if(rpta.flag == 1){
 	              var pTitle = 'OK!';
 	              var pType = 'success';
@@ -311,7 +340,7 @@ app.factory("ServicioFactory", function($uibModal, pinesNotifications, blockUI, 
 	            }else{
 	              alert('Error inesperado');
 	            }
-	            blockUI.stop(); 
+	            blockUI.stop();
 	            pinesNotifications.notify({ title: pTitle, text: rpta.message, type: pType, delay: 2500 });
 	          });
 	        } 

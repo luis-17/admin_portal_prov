@@ -7,39 +7,73 @@ class Servicio extends CI_Controller {
         parent::__construct();
         // Se le asigna a la informacion a la variable $sessionVP.
         $this->sessionFactur = @$this->session->userdata('sess_fact_'.substr(base_url(),-20,7));
-        $this->load->helper(array('fechas','otros')); 
-        $this->load->model(array('model_elemento')); 
+        // $this->load->helper(array('fechas','otros')); 
+        $this->load->helper(array('imagen_helper','otros_helper','fechas_helper'));
+        $this->load->model(array('model_servicio')); 
     }
 
-	public function listar_servicio(){ 
+	public function listar(){ 
 		$allInputs = json_decode(trim($this->input->raw_input_stream),true);
 		$paramPaginate = $allInputs['paginate'];
-		// $paramDatos = $allInputs['datos'];
-		$paramDatos['tipo_elemento'] = 'S';
-		$lista = $this->model_elemento->m_cargar_elemento($paramPaginate,$paramDatos);
-		$fCount = $this->model_elemento->m_count_elemento($paramPaginate,$paramDatos);
+		$lista = $this->model_servicio->m_cargar_servicio($paramPaginate);
+		$fCount = $this->model_servicio->m_count_servicio($paramPaginate);
 		$arrListado = array();
 		foreach ($lista as $row) { 
-			if( $row['tipo_elemento'] == 'P' ){
-				$strTipoElemento = 'PRODUCTO';
+			$strDescripcion = 'OCULTO';
+			$strClaseLabel = ' label-default';
+			if($row['visible'] === '1'){
+				$strDescripcion = 'VISIBLE';
+				$strClaseLabel = ' label-success';
 			}
-			if( $row['tipo_elemento'] == 'S' ){
-				$strTipoElemento = 'SERVICIO';
+			$strDescripcionMenu = 'OCULTO';
+			$strClaseLabelMenu = ' label-default';
+			if($row['visible_menu'] === '1'){
+				$strDescripcionMenu = 'VISIBLE';
+				$strClaseLabelMenu = ' label-success';
+			}
+			$strDescripcionEsp = 'OCULTO';
+			$strClaseLabelEsp = ' label-default';
+			if($row['visible_esp'] === '1'){
+				$strDescripcionEsp = 'VISIBLE';
+				$strClaseLabelEsp = ' label-success';
+			}
+			$strDescripcionVideo = null;
+			$strClaseLabelVideo = null;
+			if( !empty($row['embed_video']) ){
+				$strDescripcionVideo = 'VIDEO!';
+				$strClaseLabelVideo = ' label-success';
 			}
 			array_push($arrListado,
 				array(
-					'id' => $row['idelemento'],
-					'descripcion_ele' => strtoupper($row['descripcion_ele']),
-					'categoria_elemento' => array(
-						'id'=> $row['idcategoriaelemento'],
-						'descripcion'=> strtoupper($row['descripcion_cael']),
-						'color'=> $row['color_cael']
+					'idservicio' => $row['idservicio'],
+					'nombre' => $row['nombre'],
+					'descripcion_html' => $row['descripcion_html'],
+					'alias' => $row['alias'],
+					'embed_video' => $row['embed_video'],
+					'imagen_servicio' => $row['imagen_servicio'],
+					'icono_servicio' => $row['icono_servicio'],
+					'visible' => (int)$row['visible'],
+					'visible_menu' => (int)$row['visible_menu'],
+					'visible_esp' => (int)$row['visible_esp'],
+					'visible_obj' => array(
+						'claseLabel' => $strClaseLabel,
+						'visible' => $row['visible'],
+						'labelText'=> $strDescripcion
 					),
-					'tipo_elemento' => array(
-						'id'=> $row['tipo_elemento'],
-						'descripcion'=> $strTipoElemento 
+					'visible_menu_obj' => array(
+						'claseLabel' => $strClaseLabelMenu,
+						'visible' => $row['visible_menu'],
+						'labelText'=> $strDescripcionMenu
 					),
-					'precio_referencial' => $row['precio_referencial']
+					'visible_esp_obj' => array(
+						'claseLabel' => $strClaseLabelEsp,
+						'visible' => $row['visible_esp'],
+						'labelText'=> $strDescripcionEsp
+					),
+					'embed_obj' => array(
+						'claseLabel' => $strClaseLabelVideo,
+						'labelText'=> $strDescripcionVideo
+					)
 				)
 			);
 		}
@@ -56,20 +90,62 @@ class Servicio extends CI_Controller {
 	}
 	public function ver_popup_formulario()
 	{
-		$this->load->view('servicio/mant_servicio'); 
+		$this->load->view('servicio/mant_servicio');
 	}
 	public function registrar()
 	{
-		$allInputs = json_decode(trim($this->input->raw_input_stream),true);
+		// $allInputs = json_decode(trim($this->input->raw_input_stream),true);
+		$allInputs = array();
 		$arrData['message'] = 'Error al registrar los datos, inténtelo nuevamente';
     	$arrData['flag'] = 0;
     	// VALIDACIONES
-    	
+    	$allInputs['nombre'] = $this->input->post('nombre');
+    	$allInputs['alias'] = $this->input->post('alias');
+    	$fServicio = $this->model_servicio->m_validar_servicio($allInputs['nombre']);
+    	if( !empty($fServicio) ) {
+    		$arrData['message'] = 'El servicio ingresado ya existe.';
+			$arrData['flag'] = 0;
+			$this->output
+			    ->set_content_type('application/json')
+			    ->set_output(json_encode($arrData));
+			return;
+   		}
+   		$fServicioUri = $this->model_servicio->m_validar_servicio_uri($allInputs['alias']);
+    	if( !empty($fServicioUri) ) {
+    		$arrData['message'] = 'La URI ingresada ya existe.';
+			$arrData['flag'] = 0;
+			$this->output
+			    ->set_content_type('application/json')
+			    ->set_output(json_encode($arrData));
+			return;
+   		}
+   		$allInputs['descripcion_html'] = $this->input->post('descripcion_html');
+   		
+   		$allInputs['visible'] = $this->input->post('visible');
+   		$allInputs['visible_menu'] = $this->input->post('visible_menu');
+   		$allInputs['visible_esp'] = $this->input->post('visible_esp');
+   		$allInputs['embed_video'] = $this->input->post('embed_video');
+   		if($allInputs['embed_video'] === 'null'){
+   			$allInputs['embed_video'] = NULL;
+   		}
+   		$allInputs['icono_servicio'] = 'default_proceso.png';
+    	$allInputs['imagen_servicio'] = 'default_proceso.png';
     	$this->db->trans_start();
-    	$allInputs['unidad_medida'] = array(
-    		'id'=> NULL 
-    	);
-		if($this->model_elemento->m_registrar($allInputs)) { // registro de elemento
+    	if( !empty($_FILES['icono_servicio_blob']) ){
+			$allInputs['extension'] = pathinfo($_FILES['icono_servicio_blob']['name'], PATHINFO_EXTENSION);
+    		$allInputs['nuevoNombreArchivo'] = $allInputs['alias'].'_icono.'.$allInputs['extension'];
+    		if( subir_fichero('assets/dinamic/servicio','icono_servicio_blob',$allInputs['nuevoNombreArchivo']) ){
+				$allInputs['icono_servicio'] = $allInputs['nuevoNombreArchivo'];
+			}
+		}
+		if( !empty($_FILES['imagen_servicio_blob']) ){
+			$allInputs['extension'] = pathinfo($_FILES['imagen_servicio_blob']['name'], PATHINFO_EXTENSION);
+    		$allInputs['nuevoNombreArchivo'] = $allInputs['alias'].'_imagen.'.$allInputs['extension'];
+    		if( subir_fichero('assets/dinamic/servicio/imagenes','imagen_servicio_blob',$allInputs['nuevoNombreArchivo']) ){
+				$allInputs['imagen_servicio'] = $allInputs['nuevoNombreArchivo'];
+			}
+		}
+		if($this->model_servicio->m_registrar($allInputs)) { 
 			$arrData['message'] = 'Se registraron los datos correctamente';
 			$arrData['flag'] = 1;
 		}
@@ -78,19 +154,56 @@ class Servicio extends CI_Controller {
 		    ->set_content_type('application/json')
 		    ->set_output(json_encode($arrData));
 	}
+
 	public function editar()
 	{
-		$allInputs = json_decode(trim($this->input->raw_input_stream),true);
-		$arrData['message'] = 'Error al registrar los datos, inténtelo nuevamente';
+		$allInputs = array();
+		$arrData['message'] = 'Error al editar los datos, inténtelo nuevamente';
     	$arrData['flag'] = 0;
-    	// VALIDACIONES
-    	
+
+    	$allInputs['idservicio'] = $this->input->post('idservicio');
+    	$allInputs['nombre'] = $this->input->post('nombre');
+    	$allInputs['alias'] = $this->input->post('alias');
+    	$fServicio = $this->model_servicio->m_validar_servicio($allInputs['nombre'],$allInputs['idservicio']);
+    	if( !empty($fServicio) ) {
+    		$arrData['message'] = 'El servicio ingresado ya existe.';
+			$arrData['flag'] = 0;
+			$this->output
+			    ->set_content_type('application/json')
+			    ->set_output(json_encode($arrData));
+			return;
+   		}
+   		$fEspecialidadUri = $this->model_servicio->m_validar_servicio_uri($allInputs['alias'],$allInputs['idservicio']);
+    	if( !empty($fEspecialidadUri) ) {
+    		$arrData['message'] = 'La URI ingresada ya existe.';
+			$arrData['flag'] = 0;
+			$this->output
+			    ->set_content_type('application/json')
+			    ->set_output(json_encode($arrData));
+			return;
+   		}
+   		$allInputs['descripcion_html'] = $this->input->post('descripcion_html');
+   		$allInputs['visible'] = $this->input->post('visible');
+   		$allInputs['visible_menu'] = $this->input->post('visible_menu');
+   		$allInputs['visible_esp'] = $this->input->post('visible_esp');
+   		$allInputs['embed_video'] = $this->input->post('embed_video');
     	$this->db->trans_start();
-    	$allInputs['unidad_medida'] = array(
-    		'id'=> NULL 
-    	); 
-		if($this->model_elemento->m_editar($allInputs)) { // edicion de elemento
-			$arrData['message'] = 'Se registraron los datos correctamente';
+    	if( !empty($_FILES['icono_servicio_blob']) ){
+			$allInputs['extension'] = pathinfo($_FILES['icono_servicio_blob']['name'], PATHINFO_EXTENSION);
+    		$allInputs['nuevoNombreArchivo'] = $allInputs['alias'].'_icono.'.$allInputs['extension'];
+    		if( subir_fichero('assets/dinamic/servicio','icono_servicio_blob',$allInputs['nuevoNombreArchivo']) ){
+				$allInputs['icono_servicio'] = $allInputs['nuevoNombreArchivo'];
+			}
+		}
+		if( !empty($_FILES['imagen_servicio_blob']) ){
+			$allInputs['extension'] = pathinfo($_FILES['imagen_servicio_blob']['name'], PATHINFO_EXTENSION);
+    		$allInputs['nuevoNombreArchivo'] = $allInputs['alias'].'_imagen.'.$allInputs['extension'];
+    		if( subir_fichero('assets/dinamic/servicio/imagenes','imagen_servicio_blob',$allInputs['nuevoNombreArchivo']) ){
+				$allInputs['imagen_servicio'] = $allInputs['nuevoNombreArchivo'];
+			}
+		}
+		if($this->model_servicio->m_editar($allInputs)) { 
+			$arrData['message'] = 'Se editaron los datos correctamente';
 			$arrData['flag'] = 1;
 		}
 		$this->db->trans_complete();
@@ -98,12 +211,13 @@ class Servicio extends CI_Controller {
 		    ->set_content_type('application/json')
 		    ->set_output(json_encode($arrData));
 	}
+
 	public function anular()
 	{
 		$allInputs = json_decode(trim($this->input->raw_input_stream),true);
 		$arrData['message'] = 'No se pudo anular los datos';
     	$arrData['flag'] = 0;
-		if( $this->model_elemento->m_anular($allInputs) ){ 
+		if( $this->model_servicio->m_anular($allInputs) ){ 
 			$arrData['message'] = 'Se anularon los datos correctamente';
     		$arrData['flag'] = 1;
 		}
