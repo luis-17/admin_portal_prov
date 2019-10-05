@@ -17,10 +17,14 @@
 		</div>
 		<div class="form-group col-md-12 mb-md">
 			<label class="control-label mb-n"> Descripción: <small class="text-danger">(*)</small> </label>
-			<textarea class="form-control input-sm" ng-model="fData.descripcion_html" placeholder="Descripción" tabindex="30"></textarea>
+			<textarea class="form-control input-sm" ng-model="fData.descripcion_html" placeholder="Descripción" tabindex="30" required></textarea>
 		</div>
 		<div class="form-group col-md-12 mb-md">
-			<label class="control-label mb-n"> Embed de Video: <small class="text-danger">(*)</small> </label>
+			<label class="control-label mb-n"> ¿Cómo acceder al servicio?: <small class="text-danger">(*)</small> </label>
+			<textarea class="form-control input-sm" ng-model="fData.como_acceder" placeholder="¿Cómo acceder al servicio?" tabindex="35" required></textarea>
+		</div>
+		<div class="form-group col-md-12 mb-md">
+			<label class="control-label mb-n"> Embed de Video: </label>
 			<textarea class="form-control input-sm" ng-model="fData.embed_video" placeholder="Pegue aquí código EMBED" tabindex="40"></textarea>
 		</div>
 		<div class="form-group col-md-6 mb-md"> 
@@ -39,7 +43,7 @@
 			</label>						
         </div>
 		<div class="form-group col-md-6 col-sm-12 mb-md">
-			<label class="control-label mb-xs"> Imagen de Servicio (550px * 500px) </label>
+			<label class="control-label mb-xs"> Imagen de Servicio (1180px * 670px) </label>
 			<div class="fileinput fileinput-new" data-provides="fileinput" style="width: 100%;">
 				<div class="fileinput-preview thumbnail mb20" data-trigger="fileinput" style="width: 100%; text-align: center;">
 					<img ng-if="fData.imagen_servicio" ng-src="{{ app.name + 'assets/dinamic/servicio/imagenes/' + fData.imagen_servicio }}" />
@@ -64,6 +68,21 @@
 					<span class="btn btn-default btn-file"><span class="fileinput-new">Seleccionar imagen</span> 
 						<span class="fileinput-exists">Cambiar</span> 
 						<input type="file" name="file" file-model="fData.icono_servicio_blob" /> 
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="form-group col-md-6 col-sm-12 mb-md">
+			<label class="control-label mb-xs"> Icono de Servicio (grande) (247px * 247px) </label>
+			<div class="fileinput fileinput-new" data-provides="fileinput" style="width: 100%;">
+				<div class="fileinput-preview thumbnail mb20" data-trigger="fileinput" style="width: 100%; text-align: center;">
+					<img ng-if="fData.icono_servicio_lg" ng-src="{{ app.name + 'assets/dinamic/servicio/iconos-lg/' + fData.icono_servicio_lg }}" />
+				</div>
+				<div>
+					<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Quitar</a> 
+					<span class="btn btn-default btn-file"><span class="fileinput-new">Seleccionar imagen</span> 
+						<span class="fileinput-exists">Cambiar</span> 
+						<input type="file" name="file" file-model="fData.icono_servicio_lg_blob" /> 
 					</span>
 				</div>
 			</div>

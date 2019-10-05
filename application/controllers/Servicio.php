@@ -39,19 +39,23 @@ class Servicio extends CI_Controller {
 			}
 			$strDescripcionVideo = null;
 			$strClaseLabelVideo = null;
+			$strVideo = null;
 			if( !empty($row['embed_video']) ){
 				$strDescripcionVideo = 'VIDEO!';
 				$strClaseLabelVideo = ' label-success';
+				$strVideo = 'si';
 			}
 			array_push($arrListado,
 				array(
 					'idservicio' => $row['idservicio'],
 					'nombre' => $row['nombre'],
 					'descripcion_html' => $row['descripcion_html'],
+					'como_acceder' => $row['como_acceder'],
 					'alias' => $row['alias'],
 					'embed_video' => $row['embed_video'],
 					'imagen_servicio' => $row['imagen_servicio'],
 					'icono_servicio' => $row['icono_servicio'],
+					'icono_servicio_lg' => $row['icono_servicio_lg'],
 					'visible' => (int)$row['visible'],
 					'visible_menu' => (int)$row['visible_menu'],
 					'visible_esp' => (int)$row['visible_esp'],
@@ -72,7 +76,8 @@ class Servicio extends CI_Controller {
 					),
 					'embed_obj' => array(
 						'claseLabel' => $strClaseLabelVideo,
-						'labelText'=> $strDescripcionVideo
+						'labelText'=> $strDescripcionVideo,
+						'video'=> $strVideo
 					)
 				)
 			);
@@ -120,6 +125,7 @@ class Servicio extends CI_Controller {
 			return;
    		}
    		$allInputs['descripcion_html'] = $this->input->post('descripcion_html');
+   		$allInputs['como_acceder'] = $this->input->post('como_acceder');
    		
    		$allInputs['visible'] = $this->input->post('visible');
    		$allInputs['visible_menu'] = $this->input->post('visible_menu');
@@ -128,7 +134,8 @@ class Servicio extends CI_Controller {
    		if($allInputs['embed_video'] === 'null'){
    			$allInputs['embed_video'] = NULL;
    		}
-   		$allInputs['icono_servicio'] = 'default_proceso.png';
+   		$allInputs['icono_servicio'] = 'default_proceso_100.png';
+   		$allInputs['icono_servicio_lg'] = 'default_proceso.png';
     	$allInputs['imagen_servicio'] = 'default_proceso.png';
     	$this->db->trans_start();
     	if( !empty($_FILES['icono_servicio_blob']) ){
@@ -136,6 +143,13 @@ class Servicio extends CI_Controller {
     		$allInputs['nuevoNombreArchivo'] = $allInputs['alias'].'_icono.'.$allInputs['extension'];
     		if( subir_fichero('assets/dinamic/servicio','icono_servicio_blob',$allInputs['nuevoNombreArchivo']) ){
 				$allInputs['icono_servicio'] = $allInputs['nuevoNombreArchivo'];
+			}
+		}
+		if( !empty($_FILES['icono_servicio_lg_blob']) ){
+			$allInputs['extension'] = pathinfo($_FILES['icono_servicio_lg_blob']['name'], PATHINFO_EXTENSION);
+    		$allInputs['nuevoNombreArchivo'] = $allInputs['alias'].'_icono.'.$allInputs['extension'];
+    		if( subir_fichero('assets/dinamic/servicio/iconos-lg','icono_servicio_lg_blob',$allInputs['nuevoNombreArchivo']) ){
+				$allInputs['icono_servicio_lg'] = $allInputs['nuevoNombreArchivo'];
 			}
 		}
 		if( !empty($_FILES['imagen_servicio_blob']) ){
@@ -183,12 +197,25 @@ class Servicio extends CI_Controller {
 			return;
    		}
    		$allInputs['descripcion_html'] = $this->input->post('descripcion_html');
+   		$allInputs['como_acceder'] = $this->input->post('como_acceder');
    		$allInputs['visible'] = $this->input->post('visible');
    		$allInputs['visible_menu'] = $this->input->post('visible_menu');
    		$allInputs['visible_esp'] = $this->input->post('visible_esp');
    		$allInputs['embed_video'] = $this->input->post('embed_video');
+   		// var_dump($allInputs['embed_video']); 
+   		if($allInputs['embed_video'] === 'null'){
+   			// var_dump('entrasteee'); exit();
+   			$allInputs['embed_video'] = NULL;
+   		}
     	$this->db->trans_start();
-    	if( !empty($_FILES['icono_servicio_blob']) ){
+    	if( !empty($_FILES['icono_servicio_lg_blob']) ){
+			$allInputs['extension'] = pathinfo($_FILES['icono_servicio_lg_blob']['name'], PATHINFO_EXTENSION);
+    		$allInputs['nuevoNombreArchivo'] = $allInputs['alias'].'_icono.'.$allInputs['extension'];
+    		if( subir_fichero('assets/dinamic/servicio/iconos-lg','icono_servicio_lg_blob',$allInputs['nuevoNombreArchivo']) ){
+				$allInputs['icono_servicio_lg'] = $allInputs['nuevoNombreArchivo'];
+			}
+		}
+		if( !empty($_FILES['icono_servicio_blob']) ){
 			$allInputs['extension'] = pathinfo($_FILES['icono_servicio_blob']['name'], PATHINFO_EXTENSION);
     		$allInputs['nuevoNombreArchivo'] = $allInputs['alias'].'_icono.'.$allInputs['extension'];
     		if( subir_fichero('assets/dinamic/servicio','icono_servicio_blob',$allInputs['nuevoNombreArchivo']) ){

@@ -6,8 +6,8 @@ class Model_servicio extends CI_Model {
 	}
 
 	public function m_cargar_servicio($paramPaginate){ 
-		$this->db->select("se.idservicio, se.nombre, se.descripcion_html, se.alias, se.imagen_servicio, 
-			se.icono_servicio, se.visible, se.visible_esp, se.visible_menu, se.embed_video");
+		$this->db->select("se.idservicio, se.nombre, se.descripcion_html, se.como_acceder, se.alias, se.imagen_servicio, 
+			se.icono_servicio, se.icono_servicio_lg, se.visible, se.visible_esp, se.visible_menu, se.embed_video");
 		$this->db->from('servicio se');
 		$this->db->where('estado', 1);
 		if( isset($paramPaginate['search'] ) && $paramPaginate['search'] ){
@@ -79,8 +79,10 @@ class Model_servicio extends CI_Model {
 		$data = array(
 			'nombre'=> $datos['nombre'],
 			'descripcion_html'=> $datos['descripcion_html'],
+			'como_acceder'=> empty($datos['como_acceder']) ? NULL : $datos['como_acceder'],
 			'imagen_servicio'=> $datos['imagen_servicio'],
 			'icono_servicio'=> $datos['icono_servicio'],
+			'icono_servicio_lg'=> $datos['icono_servicio_lg'],
 			'alias' => $datos['alias'],
 			'visible'=> $datos['visible'],
 			'visible_menu'=> $datos['visible_menu'],
@@ -96,6 +98,7 @@ class Model_servicio extends CI_Model {
 		$data = array(
 			'nombre'=> $datos['nombre'],
 			'descripcion_html'=> $datos['descripcion_html'],
+			'como_acceder'=> empty($datos['como_acceder']) ? NULL : $datos['como_acceder'],
 			// 'imagen_servicio'=> $datos['imagen_servicio'],
 			// 'icono_servicio'=> $datos['icono_servicio'],
 			'alias' => $datos['alias'],
@@ -104,8 +107,12 @@ class Model_servicio extends CI_Model {
 			'visible_esp'=> $datos['visible_esp'],
 			'embed_video'=> empty($datos['embed_video']) ? NULL : $datos['embed_video']
 		);
+		// var_dump($data, 'daaatatataat'); exit();
 		if( !empty($datos['icono_servicio']) ){
 			$data['icono_servicio'] = $datos['icono_servicio'];
+		}
+		if( !empty($datos['icono_servicio_lg']) ){
+			$data['icono_servicio_lg'] = $datos['icono_servicio_lg'];
 		}
 		if( !empty($datos['imagen_servicio']) ){
 			$data['imagen_servicio'] = $datos['imagen_servicio'];
