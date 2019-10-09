@@ -57,6 +57,13 @@ angular.module('app')
               'angular/controllers/EspecialidadCtrl.js'
             ])
           })
+          .state('app.testimonio', {
+            url: '/testimonio',
+            templateUrl: 'tpl/testimonio.html',
+            resolve: load([
+              'angular/controllers/TestimonioCtrl.js',
+            ])
+          })
           .state('app.nueva-cotizacion', {
             url: '/nueva-cotizacion',
             templateUrl: 'tpl/nueva-cotizacion.html',
