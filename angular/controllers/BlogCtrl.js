@@ -1,9 +1,9 @@
-app.controller('ServicioCtrl', ['$scope', '$filter', '$uibModal', '$bootbox', '$log', '$timeout', 'pinesNotifications', 'uiGridConstants', 'blockUI', 
-	'ServicioFactory',
-	'ServicioServices',
+app.controller('BlogCtrl', ['$scope', '$filter', '$uibModal', '$bootbox', '$log', '$timeout', 'pinesNotifications', 'uiGridConstants', 'blockUI', 
+	'BlogFactory',
+	'BlogServices',
 	function($scope, $filter, $uibModal, $bootbox, $log, $timeout, pinesNotifications, uiGridConstants, blockUI, 
-	ServicioFactory,
-	ServicioServices
+	BlogFactory,
+	BlogServices
 	) {
 		$scope.metodos = {}; // contiene todas las funciones 
 		$scope.fArr = {}; // contiene todos los arrays generados por las funciones 
@@ -34,9 +34,11 @@ app.controller('ServicioCtrl', ['$scope', '$filter', '$uibModal', '$bootbox', '$
 	    enableFullRowSelection: true,
 	    multiSelect: false,
 	    columnDefs: [ 
-	      { field: 'idservicio', name: 'se.idservicio', displayName: 'ID', width: '75',  sort: { direction: uiGridConstants.DESC} },
-	      { field: 'nombre', name: 'se.nombre', displayName: 'Nombre', minWidth: 160 },
-	      { field: 'alias', name: 'se.alias', displayName: 'URI', minWidth: 100 },
+	      { field: 'idblog', name: 'bl.idblog', displayName: 'ID', width: '75',  sort: { direction: uiGridConstants.DESC} },
+	      { field: 'titulo', name: 'bl.titulo', displayName: 'Título', minWidth: 160 },
+	      { field: 'uri', name: 'bl.uri', displayName: 'URI', minWidth: 100 },
+	      { field: 'autor', name: 'bl.autor', displayName: 'Autor', minWidth: 100 },
+	      { field: 'fecha_publicacion', name: 'bl.fecha_publicacion', displayName: 'Fecha Publicación', minWidth: 100 },
         { field: 'embed_obj', type: 'object', name: 'embed_obj', displayName: 'MULTIMEDIA', width: '140', enableFiltering: false, enableSorting: false, enableColumnMenus: false, enableColumnMenu: false, 
           cellTemplate:'<div class="ui-grid-cell-contents">' + 
             '<label ng-if="COL_FIELD.video" tooltip-placement="left" tooltip="{{ COL_FIELD.labelText }}" class=" label {{ COL_FIELD.claseLabel }} ml-xs">'+ 
@@ -49,18 +51,6 @@ app.controller('ServicioCtrl', ['$scope', '$filter', '$uibModal', '$bootbox', '$
             ' {{COL_FIELD.labelText}} </label>'+ 
             '</div>' 
         },
-        { field: 'visible_menu_obj', type: 'object', name: 'visible_menu_obj', displayName: 'VISIBLE EN MENÚ', width: '140', enableFiltering: false, enableSorting: false, enableColumnMenus: false, enableColumnMenu: false, 
-          cellTemplate:'<div class="ui-grid-cell-contents">' + 
-            '<label tooltip-placement="left" tooltip="{{ COL_FIELD.labelText }}" class=" label {{ COL_FIELD.claseLabel }} ml-xs">'+ 
-            ' {{COL_FIELD.labelText}} </label>'+ 
-            '</div>' 
-        },
-        { field: 'visible_esp_obj', type: 'object', name: 'visible_esp_obj', displayName: 'VISIBLE EN ESP.', width: '140', enableFiltering: false, enableSorting: false, enableColumnMenus: false, enableColumnMenu: false, 
-          cellTemplate:'<div class="ui-grid-cell-contents">' + 
-            '<label tooltip-placement="left" tooltip="{{ COL_FIELD.labelText }}" class=" label {{ COL_FIELD.claseLabel }} ml-xs">'+ 
-            ' {{COL_FIELD.labelText}} </label>'+ 
-            '</div>' 
-        }
 	    ],
 	    onRegisterApi: function(gridApi) { 
 	      $scope.gridApi = gridApi;
@@ -90,9 +80,11 @@ app.controller('ServicioCtrl', ['$scope', '$filter', '$uibModal', '$bootbox', '$
 	        var grid = this.grid;
 	        paginationOptions.search = true; 
 	        paginationOptions.searchColumn = {
-	          'se.idservicio' : grid.columns[1].filters[0].term,
-	          'se.nombre' : grid.columns[2].filters[0].term,
-	          'se.alias' : grid.columns[3].filters[0].term
+	          'bl.idblog' : grid.columns[1].filters[0].term,
+	          'bl.titulo' : grid.columns[2].filters[0].term,
+	          'bl.uri' : grid.columns[3].filters[0].term,
+	          'bl.autor' : grid.columns[4].filters[0].term,
+	          'bl.fecha_publicacion' : grid.columns[5].filters[0].term
 	        }
 	        $scope.metodos.getPaginationServerSide();
 	      });
@@ -106,7 +98,7 @@ app.controller('ServicioCtrl', ['$scope', '$filter', '$uibModal', '$bootbox', '$
 		  var arrParams = {
 		    paginate : paginationOptions
 		  };
-		  ServicioServices.sListar(arrParams).then(function (rpta) { 
+		  BlogServices.sListar(arrParams).then(function (rpta) { 
 		  	if( rpta.datos.length == 0 ){
 		  		rpta.paginate = { totalRows: 0 };
 		  	}
@@ -125,7 +117,7 @@ app.controller('ServicioCtrl', ['$scope', '$filter', '$uibModal', '$bootbox', '$
 				'metodos': $scope.metodos,
 				'fArr': $scope.fArr 
 			}
-			ServicioFactory.regServicioModal(arrParams); 
+			BlogFactory.regBlogModal(arrParams); 
 		}
 		$scope.btnEditar = function() { 
 			var arrParams = {
@@ -133,17 +125,17 @@ app.controller('ServicioCtrl', ['$scope', '$filter', '$uibModal', '$bootbox', '$
 				'mySelectionGrid': $scope.mySelectionGrid,
 				'fArr': $scope.fArr 
 			}
-			ServicioFactory.editServicioModal(arrParams); 
+			BlogFactory.editBlogModal(arrParams); 
 		}
 		$scope.btnAnular = function() { 
 	    var pMensaje = '¿Realmente desea anular el registro?';
 	    $bootbox.confirm(pMensaje, function(result) {
 	      if(result){
 	        var arrParams = {
-	          idservicio: $scope.mySelectionGrid[0].idservicio 
+	          idblog: $scope.mySelectionGrid[0].idblog 
 	        };
 	        blockUI.start('Procesando información...');
-	        ServicioServices.sAnular(arrParams).then(function (rpta) {
+	        BlogServices.sAnular(arrParams).then(function (rpta) {
 	          if(rpta.flag == 1){
 	            var pTitle = 'OK!';
 	            var pType = 'success';
@@ -162,7 +154,7 @@ app.controller('ServicioCtrl', ['$scope', '$filter', '$uibModal', '$bootbox', '$
 	  }
 }]);
 
-app.service("ServicioServices",function($http, $q, handleBehavior) {
+app.service("BlogServices",function($http, $q, handleBehavior) {
     return({
       sListar: sListar,
       sRegistrar: sRegistrar,
@@ -172,7 +164,7 @@ app.service("ServicioServices",function($http, $q, handleBehavior) {
     function sListar(datos) {
       var request = $http({
         method : "post",
-        url : angular.patchURLCI+"Servicio/listar",
+        url : angular.patchURLCI+"Blog/listar",
         data : datos
       });
       return (request.then(handleBehavior.success,handleBehavior.error));
@@ -180,7 +172,7 @@ app.service("ServicioServices",function($http, $q, handleBehavior) {
     function sRegistrar (datos) {
       var request = $http({
         method : "post",
-        url : angular.patchURLCI+"Servicio/registrar",
+        url : angular.patchURLCI+"Blog/registrar",
         data : datos,
         transformRequest: angular.identity,
         headers: {'Content-Type': undefined}
@@ -190,7 +182,7 @@ app.service("ServicioServices",function($http, $q, handleBehavior) {
     function sEditar (datos) {
       var request = $http({
         method : "post",
-        url : angular.patchURLCI+"Servicio/editar",
+        url : angular.patchURLCI+"Blog/editar",
         data : datos,
         transformRequest: angular.identity,
         headers: {'Content-Type': undefined}
@@ -200,19 +192,19 @@ app.service("ServicioServices",function($http, $q, handleBehavior) {
     function sAnular (datos) {
       var request = $http({
         method : "post",
-        url : angular.patchURLCI+"Servicio/anular",
+        url : angular.patchURLCI+"Blog/anular",
         data : datos
       });
       return (request.then(handleBehavior.success,handleBehavior.error));
     }
 });
 
-app.factory("ServicioFactory", function($uibModal, pinesNotifications, blockUI, ServicioServices) { 
+app.factory("BlogFactory", function($uibModal, pinesNotifications, blockUI, BlogServices) { 
 	var interfaz = {
-		regServicioModal: function (arrParams) {
+		regBlogModal: function (arrParams) {
 			blockUI.start('Abriendo formulario...');
 			$uibModal.open({ 
-	      templateUrl: angular.patchURLCI+'Servicio/ver_popup_formulario',
+	      templateUrl: angular.patchURLCI+'Blog/ver_popup_formulario',
 	      size: 'md',
 	      backdrop: 'static',
 	      keyboard:false,
@@ -221,30 +213,17 @@ app.factory("ServicioFactory", function($uibModal, pinesNotifications, blockUI, 
 	      	$scope.fData = {};
 	      	$scope.metodos = arrParams.metodos;
 	      	$scope.fArr = arrParams.fArr;
-	      	$scope.titleForm = 'Registro de Servicio';
+	      	$scope.titleForm = 'Registro de Post';
 	      	$scope.cancel = function () {
 	      	  $uibModalInstance.dismiss('cancel');
 	      	}
-	      	// BINDEO TIPO DE ELEMENTO 
-	      	// var objIndex = $scope.fArr.listaTipoElemento.filter(function(obj) { 
-        //     return obj.id == 'S';
-        //   }).shift(); 
-        //   $scope.fData.tipo_elemento = objIndex; 
-
-	      	// BINDEO CATEGORIA DE ELEMENTO 
-	      	// var myCallBackCC = function() { 
-	      	// 	$scope.fArr.listaCategoriasElemento.splice(0,0,{ id : '0', descripcion:'--Seleccione categoría de servicio--'}); 
-	      	// 	$scope.fData.categoria_elemento = $scope.fArr.listaCategoriasElemento[0]; 
-	      	// }
-	      	// $scope.metodos.listaCategoriasElemento(myCallBackCC); 
-
 	      	$scope.aceptar = function () { 
 	      		blockUI.start('Procesando información...');
 	      		var formData = new FormData();
             angular.forEach($scope.fData,function (index,val) { 
               formData.append(val,index);
             });
-	          ServicioServices.sRegistrar(formData).then(function (rpta) {
+	          BlogServices.sRegistrar(formData).then(function (rpta) {
 	            if(rpta.flag == 1){
 	              var pTitle = 'OK!';
 	              var pType = 'success';
@@ -270,10 +249,10 @@ app.factory("ServicioFactory", function($uibModal, pinesNotifications, blockUI, 
         }
 	    });
 		},
-		editServicioModal: function (arrParams) {
+		editBlogModal: function (arrParams) {
 			blockUI.start('Abriendo formulario...');
 			$uibModal.open({ 
-	      templateUrl: angular.patchURLCI+'Servicio/ver_popup_formulario',
+	      templateUrl: angular.patchURLCI+'Blog/ver_popup_formulario',
 	      size: 'md',
 	      backdrop: 'static',
 	      keyboard:false,
@@ -287,32 +266,17 @@ app.factory("ServicioFactory", function($uibModal, pinesNotifications, blockUI, 
 	        }else{
 	          alert('Seleccione una sola fila');
 	        }
-	      	$scope.titleForm = 'Edición de Servicio';
+	      	$scope.titleForm = 'Edición de Post';
 	      	$scope.cancel = function () {
 	      	  $uibModalInstance.dismiss('cancel');
 	      	}
-	      	// BINDEO TIPO DE ELEMENTO 
-	      	// var objIndex = $scope.fArr.listaTipoElemento.filter(function(obj) { 
-        //     return obj.id == $scope.fData.tipo_elemento.id;
-        //   }).shift(); 
-        //   $scope.fData.tipo_elemento = objIndex; 
-
-	      	// BINDEO CATEGORIA DE ELEMENTO 
-	      	// var myCallBackCC = function() { 
-	      	// 	var objIndex = $scope.fArr.listaCategoriasElemento.filter(function(obj) { 
-	       //      return obj.id == $scope.fData.categoria_elemento.id;
-	       //    }).shift(); 
-	      	// 	$scope.fData.categoria_elemento = objIndex; 
-	      	// }
-	      	// $scope.metodos.listaCategoriasElemento(myCallBackCC); 
-
 	      	$scope.aceptar = function () { 
 	      		blockUI.start('Procesando información...');
 	      		var formData = new FormData();
             angular.forEach($scope.fData,function (index,val) { 
               formData.append(val,index);
             });
-	          ServicioServices.sEditar(formData).then(function (rpta) {
+	          BlogServices.sEditar(formData).then(function (rpta) {
 	            if(rpta.flag == 1){
 	              var pTitle = 'OK!';
 	              var pType = 'success';

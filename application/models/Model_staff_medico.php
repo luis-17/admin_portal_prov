@@ -66,8 +66,8 @@ class Model_staff_medico extends CI_Model {
 			'cmp' => $datos['cmp'],
 			'rne' => $datos['rne'],
 			'sexo' => $datos['sexo'],
-			'lema' => empty($datos['lema']) ? NULL : $datos['lema'],
-			'estudios_html' => empty($datos['estudios_html']) ? NULL : $datos['estudios_html'],	
+			'lema' => empty($datos['lema']) ? NULL : nl2br($datos['lema']),
+			'estudios_html' => empty($datos['estudios_html']) ? NULL : nl2br($datos['estudios_html']),	
 			'foto' => $datos['foto'],
 			'foto_perfil' => $datos['foto_perfil'],
 			'visible' => 1,
@@ -82,8 +82,8 @@ class Model_staff_medico extends CI_Model {
 			'cmp' => $datos['cmp'],
 			'rne' => $datos['rne'],
 			'sexo' => $datos['sexo'],
-			'lema' => empty($datos['lema']) ? NULL : $datos['lema'],
-			'estudios_html' => empty($datos['estudios_html']) ? NULL : $datos['estudios_html']
+			'lema' => empty($datos['lema']) ? NULL : nl2br($datos['lema']),
+			'estudios_html' => empty($datos['estudios_html']) ? NULL : nl2br($datos['estudios_html'])
 			// 'foto' => $datos['foto'],
 			// 'foto_perfil' => $datos['foto_perfil'],
 			// 'visible' => $datos['visible'],

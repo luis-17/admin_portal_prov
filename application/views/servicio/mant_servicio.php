@@ -3,10 +3,6 @@
 </div> 
 <div class="modal-body">  
 	<form class="row" name="formServicio"> 
-		<!-- <div class="form-group col-md-4 mb-md ">
-			<label class="control-label mb-n"> Tipo de Elemento <small class="text-danger">(*)</small> </label>
-            <select disabled class="form-control input-sm" ng-model="fData.tipo_elemento" ng-options="item as item.descripcion for item in fArr.listaTipoElemento" required tabindex="10" ></select> 
-		</div> -->
 		<div class="form-group col-md-6 mb-md">
 			<label class="control-label mb-n"> Nombre <small class="text-danger">(*)</small> </label>
 			<input type="text" class="form-control input-sm" ng-model="fData.nombre" placeholder="Nombre" required tabindex="10" />
@@ -17,11 +13,13 @@
 		</div>
 		<div class="form-group col-md-12 mb-md">
 			<label class="control-label mb-n"> Descripción: <small class="text-danger">(*)</small> </label>
-			<textarea class="form-control input-sm" ng-model="fData.descripcion_html" placeholder="Descripción" tabindex="30" required></textarea>
+			<text-angular tabindex="30" ng-model="fData.descripcion_html" required></text-angular>
+			<!-- <textarea class="form-control input-sm" ng-model="fData.descripcion_html" placeholder="Descripción" tabindex="30" required></textarea> -->
 		</div>
 		<div class="form-group col-md-12 mb-md">
 			<label class="control-label mb-n"> ¿Cómo acceder al servicio?: <small class="text-danger">(*)</small> </label>
-			<textarea class="form-control input-sm" ng-model="fData.como_acceder" placeholder="¿Cómo acceder al servicio?" tabindex="35" required></textarea>
+			<text-angular tabindex="35" ng-model="fData.como_acceder" required></text-angular>
+			<!-- <textarea class="form-control input-sm" ng-model="fData.como_acceder" placeholder="¿Cómo acceder al servicio?" tabindex="35" required></textarea> -->
 		</div>
 		<div class="form-group col-md-12 mb-md">
 			<label class="control-label mb-n"> Embed de Video: </label>

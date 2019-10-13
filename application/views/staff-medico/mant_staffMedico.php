@@ -36,7 +36,8 @@
 		</div>
 		<div class="form-group col-md-12 mb-md">
 			<label class="control-label mb-n"> Estudios: </label>
-			<textarea class="form-control input-sm" ng-model="fData.estudios_html" placeholder="Ingrese estudios" tabindex="70"></textarea>
+			<text-angular tabindex="70" ng-model="fData.estudios_html" required></text-angular>
+			<!-- <textarea class="form-control input-sm" ng-model="fData.estudios_html" placeholder="Ingrese estudios" tabindex="70"></textarea> -->
 		</div>
 		<div class="form-group col-md-6 col-sm-12 mb-md">
 			<label class="control-label mb-xs"> Foto Miniatura (200px * 253px) </label>

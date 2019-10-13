@@ -46,7 +46,7 @@ class Model_testimonio extends CI_Model {
 		$data = array(
 			'paciente' => $datos['paciente'],	
 			'foto' => $datos['foto'],
-			'testimonio_html' => $datos['testimonio_html'],
+			'testimonio_html' => nl2br($datos['testimonio_html']),
 			'visible' => $datos['visible']
 		);
 		return $this->db->insert('testimonio', $data); 
@@ -55,7 +55,7 @@ class Model_testimonio extends CI_Model {
 	public function m_editar($datos){
 		$data = array(
 			'paciente' => $datos['paciente'],
-			'testimonio_html' => $datos['testimonio_html'],
+			'testimonio_html' => nl2br($datos['testimonio_html']),
 			'visible' => $datos['visible'],
 		);
 		if( !empty($datos['foto']) ){

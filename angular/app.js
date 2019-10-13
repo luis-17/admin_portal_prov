@@ -27,6 +27,7 @@ angular.module('app', [
     'ui.grid.autoResize',
     'ui.grid.moveColumns', 
     'ui.grid.exporter', 
-    'ui.grid.pinning'
+    'ui.grid.pinning',
+    'textAngular'
     // 'ui.tree'
 ]);

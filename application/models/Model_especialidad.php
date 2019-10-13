@@ -111,7 +111,7 @@ class Model_especialidad extends CI_Model {
 	{
 		$data = array(
 			'nombre' => strtoupper($datos['nombre']),
-			'descripcion_html' => $datos['descripcion_html'],
+			'descripcion_html' => nl2br($datos['descripcion_html']),
 			'uri' => $datos['uri'],
 			'visible'=> $datos['visible'],
 			'visible_home'=> $datos['visible_home']
@@ -124,7 +124,7 @@ class Model_especialidad extends CI_Model {
 	{
 		$data = array(
 			'nombre' => strtoupper($datos['nombre']),
-			'descripcion_html' => $datos['descripcion_html'],
+			'descripcion_html' => nl2br($datos['descripcion_html']),
 			'uri' => $datos['uri'],
 			'visible'=> $datos['visible'],
 			'visible_home'=> $datos['visible_home']

@@ -9,7 +9,8 @@
 		</div>
 		<div class="form-group col-md-12 mb-md">
 			<label class="control-label mb-n"> Descripción: <small class="text-danger">(*)</small> </label>
-			<textarea class="form-control input-sm" ng-model="fData.testimonio_html" placeholder="Describa el testimonio" tabindex="30" required></textarea>
+			<text-angular tabindex="30" ng-model="fData.testimonio_html" required></text-angular>
+			<!-- <textarea class="form-control input-sm" ng-model="fData.testimonio_html" placeholder="Describa el testimonio" tabindex="30" required></textarea> -->
 		</div>
 		<div class="form-group col-md-6 mb-md"> 
 			<label class="checkbox block" style="margin-left: 20px;">

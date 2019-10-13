@@ -36,6 +36,12 @@
     cursor:default;
 }
 
+.ta-toolbar{
+    background-color: #F0F0F0;
+    padding: 6px 2px;
+    margin-left: 0px;
+    border: 1px solid #EEE;
+}
 
 .btn {
 	text-transform: uppercase;

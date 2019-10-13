@@ -2,14 +2,15 @@
 	<h4 class="modal-title"> {{ titleForm }} </h4>
 </div> 
 <div class="modal-body">  
-	<form class="row" name="formTransporte">
+	<form class="row" name="formEspecialidad">
 		<div class="form-group col-md-12 mb-md">
 			<label class="control-label mb-n"> Nombre: <small class="text-danger">(*)</small> </label>
 			<input type="text" class="form-control input-sm" ng-model="fData.nombre" placeholder="Nombre" required tabindex="100" />
 		</div>
 		<div class="form-group col-md-12 mb-md">
 			<label class="control-label mb-n"> Descripción: <small class="text-danger">(*)</small> </label>
-			<textarea class="form-control input-sm" ng-model="fData.descripcion_html" placeholder="Descripción" tabindex="70"></textarea>
+			<text-angular tabindex="200" ng-model="fData.descripcion_html" required></text-angular>
+			<!-- <textarea class="form-control input-sm" ng-model="fData.descripcion_html" placeholder="Descripción" tabindex="70"></textarea> -->
 		</div>
 		<div class="form-group col-md-6 mb-md">
 			<label class="control-label mb-n"> URI: </label>
@@ -63,6 +64,6 @@
 	</form>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="aceptar(); $event.preventDefault();" ng-disabled="formTransporte.$invalid">Aceptar</button>
+    <button class="btn btn-primary" ng-click="aceptar(); $event.preventDefault();" ng-disabled="formEspecialidad.$invalid">Aceptar</button>
     <button class="btn btn-warning" ng-click="cancel()">Cerrar</button>
 </div> 

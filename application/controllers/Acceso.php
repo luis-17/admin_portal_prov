@@ -4,7 +4,7 @@ class Acceso extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->helper(array('security','config'));
-		$this->load->model(array('model_acceso','model_colaborador','model_configuracion'));
+		$this->load->model(array('model_acceso','model_configuracion'));
 		//cache
 		$this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate, no-transform, max-age=0, post-check=0, pre-check=0"); 
 		$this->output->set_header("Pragma: no-cache");

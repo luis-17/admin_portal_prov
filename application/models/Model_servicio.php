@@ -78,8 +78,8 @@ class Model_servicio extends CI_Model {
 	{
 		$data = array(
 			'nombre'=> $datos['nombre'],
-			'descripcion_html'=> $datos['descripcion_html'],
-			'como_acceder'=> empty($datos['como_acceder']) ? NULL : $datos['como_acceder'],
+			'descripcion_html'=> nl2br($datos['descripcion_html']),
+			'como_acceder'=> empty($datos['como_acceder']) ? NULL : nl2br($datos['como_acceder']),
 			'imagen_servicio'=> $datos['imagen_servicio'],
 			'icono_servicio'=> $datos['icono_servicio'],
 			'icono_servicio_lg'=> $datos['icono_servicio_lg'],
@@ -97,8 +97,8 @@ class Model_servicio extends CI_Model {
 	{
 		$data = array(
 			'nombre'=> $datos['nombre'],
-			'descripcion_html'=> $datos['descripcion_html'],
-			'como_acceder'=> empty($datos['como_acceder']) ? NULL : $datos['como_acceder'],
+			'descripcion_html'=> nl2br($datos['descripcion_html']),
+			'como_acceder'=> empty($datos['como_acceder']) ? NULL : nl2br($datos['como_acceder']),
 			// 'imagen_servicio'=> $datos['imagen_servicio'],
 			// 'icono_servicio'=> $datos['icono_servicio'],
 			'alias' => $datos['alias'],
