@@ -41,16 +41,16 @@
 			</label>						
         </div>
 		<div class="form-group col-md-6 col-sm-12 mb-md">
-			<label class="control-label mb-xs"> Imagen de Servicio (1180px * 670px) </label>
+			<label class="control-label mb-xs"> Imagen de Portada (1180px * 670px) </label>
 			<div class="fileinput fileinput-new" data-provides="fileinput" style="width: 100%;">
 				<div class="fileinput-preview thumbnail mb20" data-trigger="fileinput" style="width: 100%; text-align: center;">
-					<img ng-if="fData.imagen_servicio" ng-src="{{ app.name + 'assets/dinamic/servicio/imagenes/' + fData.imagen_servicio }}" />
+					<img ng-if="fData.imagen_portada" ng-src="{{ app.name + 'assets/dinamic/servicio/imagenes/' + fData.imagen_portada }}" />
 				</div>
 				<div>
 					<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Quitar</a> 
 					<span class="btn btn-default btn-file"><span class="fileinput-new">Seleccionar imagen</span> 
 						<span class="fileinput-exists">Cambiar</span> 
-						<input type="file" name="file" file-model="fData.imagen_servicio_blob" /> 
+						<input type="file" name="file" file-model="fData.imagen_portada_blob" /> 
 					</span>
 				</div>
 			</div>
@@ -70,7 +70,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="form-group col-md-6 col-sm-12 mb-md">
+		<!-- <div class="form-group col-md-6 col-sm-12 mb-md">
 			<label class="control-label mb-xs"> Icono de Servicio (grande) (247px * 247px) </label>
 			<div class="fileinput fileinput-new" data-provides="fileinput" style="width: 100%;">
 				<div class="fileinput-preview thumbnail mb20" data-trigger="fileinput" style="width: 100%; text-align: center;">
@@ -84,7 +84,7 @@
 					</span>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</form>
 </div>
 <div class="modal-footer">

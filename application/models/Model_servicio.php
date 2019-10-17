@@ -6,7 +6,7 @@ class Model_servicio extends CI_Model {
 	}
 
 	public function m_cargar_servicio($paramPaginate){ 
-		$this->db->select("se.idservicio, se.nombre, se.descripcion_html, se.como_acceder, se.alias, se.imagen_servicio, 
+		$this->db->select("se.idservicio, se.nombre, se.descripcion_html, se.como_acceder, se.alias, se.imagen_portada, 
 			se.icono_servicio, se.icono_servicio_lg, se.visible, se.visible_esp, se.visible_menu, se.embed_video");
 		$this->db->from('servicio se');
 		$this->db->where('estado', 1);
@@ -80,7 +80,7 @@ class Model_servicio extends CI_Model {
 			'nombre'=> $datos['nombre'],
 			'descripcion_html'=> nl2br($datos['descripcion_html']),
 			'como_acceder'=> empty($datos['como_acceder']) ? NULL : nl2br($datos['como_acceder']),
-			'imagen_servicio'=> $datos['imagen_servicio'],
+			'imagen_portada'=> $datos['imagen_portada'],
 			'icono_servicio'=> $datos['icono_servicio'],
 			'icono_servicio_lg'=> $datos['icono_servicio_lg'],
 			'alias' => $datos['alias'],
@@ -99,7 +99,7 @@ class Model_servicio extends CI_Model {
 			'nombre'=> $datos['nombre'],
 			'descripcion_html'=> nl2br($datos['descripcion_html']),
 			'como_acceder'=> empty($datos['como_acceder']) ? NULL : nl2br($datos['como_acceder']),
-			// 'imagen_servicio'=> $datos['imagen_servicio'],
+			// 'imagen_portada'=> $datos['imagen_portada'],
 			// 'icono_servicio'=> $datos['icono_servicio'],
 			'alias' => $datos['alias'],
 			'visible'=> $datos['visible'],
@@ -114,8 +114,8 @@ class Model_servicio extends CI_Model {
 		if( !empty($datos['icono_servicio_lg']) ){
 			$data['icono_servicio_lg'] = $datos['icono_servicio_lg'];
 		}
-		if( !empty($datos['imagen_servicio']) ){
-			$data['imagen_servicio'] = $datos['imagen_servicio'];
+		if( !empty($datos['imagen_portada']) ){
+			$data['imagen_portada'] = $datos['imagen_portada'];
 		}
 		$this->db->where('idservicio',$datos['idservicio']);
 		return $this->db->update('servicio', $data);

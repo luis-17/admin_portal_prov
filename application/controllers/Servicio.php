@@ -53,7 +53,7 @@ class Servicio extends CI_Controller {
 					'como_acceder' => $row['como_acceder'],
 					'alias' => $row['alias'],
 					'embed_video' => $row['embed_video'],
-					'imagen_servicio' => $row['imagen_servicio'],
+					'imagen_portada' => $row['imagen_portada'],
 					'icono_servicio' => $row['icono_servicio'],
 					'icono_servicio_lg' => $row['icono_servicio_lg'],
 					'visible' => (int)$row['visible'],
@@ -136,7 +136,7 @@ class Servicio extends CI_Controller {
    		}
    		$allInputs['icono_servicio'] = 'default_proceso_100.png';
    		$allInputs['icono_servicio_lg'] = 'default_proceso.png';
-    	$allInputs['imagen_servicio'] = 'default_proceso.png';
+    	$allInputs['imagen_portada'] = 'default_proceso.png';
     	$this->db->trans_start();
     	if( !empty($_FILES['icono_servicio_blob']) ){
 			$allInputs['extension'] = pathinfo($_FILES['icono_servicio_blob']['name'], PATHINFO_EXTENSION);
@@ -152,11 +152,11 @@ class Servicio extends CI_Controller {
 				$allInputs['icono_servicio_lg'] = $allInputs['nuevoNombreArchivo'];
 			}
 		}
-		if( !empty($_FILES['imagen_servicio_blob']) ){
-			$allInputs['extension'] = pathinfo($_FILES['imagen_servicio_blob']['name'], PATHINFO_EXTENSION);
+		if( !empty($_FILES['imagen_portada_blob']) ){
+			$allInputs['extension'] = pathinfo($_FILES['imagen_portada_blob']['name'], PATHINFO_EXTENSION);
     		$allInputs['nuevoNombreArchivo'] = $allInputs['alias'].'_imagen.'.$allInputs['extension'];
-    		if( subir_fichero('assets/dinamic/servicio/imagenes','imagen_servicio_blob',$allInputs['nuevoNombreArchivo']) ){
-				$allInputs['imagen_servicio'] = $allInputs['nuevoNombreArchivo'];
+    		if( subir_fichero('assets/dinamic/servicio/imagenes','imagen_portada_blob',$allInputs['nuevoNombreArchivo']) ){
+				$allInputs['imagen_portada'] = $allInputs['nuevoNombreArchivo'];
 			}
 		}
 		if($this->model_servicio->m_registrar($allInputs)) { 
@@ -222,11 +222,11 @@ class Servicio extends CI_Controller {
 				$allInputs['icono_servicio'] = $allInputs['nuevoNombreArchivo'];
 			}
 		}
-		if( !empty($_FILES['imagen_servicio_blob']) ){
-			$allInputs['extension'] = pathinfo($_FILES['imagen_servicio_blob']['name'], PATHINFO_EXTENSION);
+		if( !empty($_FILES['imagen_portada_blob']) ){
+			$allInputs['extension'] = pathinfo($_FILES['imagen_portada_blob']['name'], PATHINFO_EXTENSION);
     		$allInputs['nuevoNombreArchivo'] = $allInputs['alias'].'_imagen.'.$allInputs['extension'];
-    		if( subir_fichero('assets/dinamic/servicio/imagenes','imagen_servicio_blob',$allInputs['nuevoNombreArchivo']) ){
-				$allInputs['imagen_servicio'] = $allInputs['nuevoNombreArchivo'];
+    		if( subir_fichero('assets/dinamic/servicio/imagenes','imagen_portada_blob',$allInputs['nuevoNombreArchivo']) ){
+				$allInputs['imagen_portada'] = $allInputs['nuevoNombreArchivo'];
 			}
 		}
 		if($this->model_servicio->m_editar($allInputs)) { 

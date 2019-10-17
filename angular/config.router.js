@@ -38,14 +38,12 @@ angular.module('app')
             templateUrl: 'tpl/app_dashboard.html',
             resolve: load(['angular/controllers/chart.js'])
           })
-          .state('app.persona-natural', {
-            url: '/persona-natural',
-            templateUrl: 'tpl/persona-natural.html',
+          .state('app.sliders-home', {
+            url: '/sliders-home',
+            templateUrl: 'tpl/sliders-home.html',
             resolve: load([
-              'angular/controllers/ClientePersonaCtrl.js',
-              'angular/controllers/CategoriaClienteCtrl.js',
-              'angular/controllers/ColaboradorCtrl.js'
-            ]) 
+              'angular/controllers/SlidersHomeCtrl.js',
+            ])
           })
           .state('app.staff-medico', {
             url: '/staff-medico',
