@@ -1,9 +1,9 @@
-app.controller('CategoriaElementoCtrl', ['$scope', '$filter', '$uibModal', '$bootbox', '$log', '$timeout', 'pinesNotifications', 'uiGridConstants', 'blockUI', 
-  'CategoriaElementoFactory',
-  'CategoriaElementoServices',
+app.controller('SeguroCtrl', ['$scope', '$filter', '$uibModal', '$bootbox', '$log', '$timeout', 'pinesNotifications', 'uiGridConstants', 'blockUI', 
+  'SeguroFactory',
+  'SeguroServices',
   function($scope, $filter, $uibModal, $bootbox, $log, $timeout, pinesNotifications, uiGridConstants, blockUI, 
-  CategoriaElementoFactory,
-  CategoriaElementoServices
+  SeguroFactory,
+  SeguroServices
   ) {
     $scope.metodos = {}; // contiene todas las funciones 
     $scope.fArr = {}; // contiene todos los arrays generados por las funciones 
@@ -34,9 +34,14 @@ app.controller('CategoriaElementoCtrl', ['$scope', '$filter', '$uibModal', '$boo
       enableFullRowSelection: true,
       multiSelect: false,
       columnDefs: [ 
-        { field: 'id', name: 'ce.idcategoriaelemento', displayName: 'ID', width: '75',  sort: { direction: uiGridConstants.DESC} },
-        { field: 'descripcion_cael', name: 'ce.descripcion_cael', displayName: 'Descripción', minWidth: 160 },
-        { field: 'color_cael', name: 'ce.color_cael', displayName: 'Color', minWidth: 100 }
+        { field: 'idseguro', name: 'se.idseguro', displayName: 'ID', width: '75',  sort: { direction: uiGridConstants.DESC} },
+        { field: 'nombre', name: 'se.nombre', displayName: 'Nombre', minWidth: 100 },
+        { field: 'visible_obj', type: 'object', name: 'visible_obj', displayName: 'VISIBLE', width: '140', enableFiltering: false, enableSorting: false, enableColumnMenus: false, enableColumnMenu: false, 
+          cellTemplate:'<div class="ui-grid-cell-contents">' + 
+            '<label tooltip-placement="left" tooltip="{{ COL_FIELD.labelText }}" class=" label {{ COL_FIELD.claseLabel }} ml-xs">'+ 
+            ' {{COL_FIELD.labelText}} </label>'+ 
+            '</div>' 
+        }
       ],
       onRegisterApi: function(gridApi) { 
         $scope.gridApi = gridApi;
@@ -66,9 +71,8 @@ app.controller('CategoriaElementoCtrl', ['$scope', '$filter', '$uibModal', '$boo
           var grid = this.grid;
           paginationOptions.search = true; 
           paginationOptions.searchColumn = {
-            'ce.idcategoriaelemento' : grid.columns[1].filters[0].term,
-            'ce.descripcion_cael' : grid.columns[2].filters[0].term,
-            'ce.color_cael' : grid.columns[3].filters[0].term
+            'se.idseguro' : grid.columns[1].filters[0].term,
+            'se.nombre' : grid.columns[2].filters[0].term
           }
           $scope.metodos.getPaginationServerSide();
         });
@@ -82,7 +86,7 @@ app.controller('CategoriaElementoCtrl', ['$scope', '$filter', '$uibModal', '$boo
       var arrParams = {
         paginate : paginationOptions
       };
-      CategoriaElementoServices.sListar(arrParams).then(function (rpta) { 
+      SeguroServices.sListar(arrParams).then(function (rpta) { 
         if( rpta.datos.length == 0 ){
           rpta.paginate = { totalRows: 0 };
         }
@@ -101,7 +105,7 @@ app.controller('CategoriaElementoCtrl', ['$scope', '$filter', '$uibModal', '$boo
         'metodos': $scope.metodos,
         'fArr': $scope.fArr 
       }
-      CategoriaElementoFactory.regCategoriaElementoModal(arrParams); 
+      SeguroFactory.regModal(arrParams); 
     }
     $scope.btnEditar = function() { 
       var arrParams = {
@@ -109,17 +113,17 @@ app.controller('CategoriaElementoCtrl', ['$scope', '$filter', '$uibModal', '$boo
         'mySelectionGrid': $scope.mySelectionGrid,
         'fArr': $scope.fArr 
       }
-      CategoriaElementoFactory.editCategoriaElementoModal(arrParams); 
+      SeguroFactory.editModal(arrParams); 
     }
     $scope.btnAnular = function() { 
       var pMensaje = '¿Realmente desea anular el registro?';
       $bootbox.confirm(pMensaje, function(result) {
         if(result){
           var arrParams = {
-            id: $scope.mySelectionGrid[0].id 
+            idseguro: $scope.mySelectionGrid[0].idseguro 
           };
           blockUI.start('Procesando información...');
-          CategoriaElementoServices.sAnular(arrParams).then(function (rpta) {
+          SeguroServices.sAnular(arrParams).then(function (rpta) {
             if(rpta.flag == 1){
               var pTitle = 'OK!';
               var pType = 'success';
@@ -138,18 +142,17 @@ app.controller('CategoriaElementoCtrl', ['$scope', '$filter', '$uibModal', '$boo
     }
 }]);
 
-app.service("CategoriaElementoServices",function($http, $q, handleBehavior) {
+app.service("SeguroServices",function($http, $q, handleBehavior) {
     return({
         sListar: sListar,
         sRegistrar: sRegistrar,
         sEditar: sEditar,
-        sAnular: sAnular,
-        sListarCbo: sListarCbo
+        sAnular: sAnular 
     });
     function sListar(datos) {
       var request = $http({
             method : "post",
-            url : angular.patchURLCI+"CategoriaElemento/listar_categoria_elemento",
+            url : angular.patchURLCI+"Seguro/listar",
             data : datos
       });
       return (request.then(handleBehavior.success,handleBehavior.error));
@@ -157,43 +160,39 @@ app.service("CategoriaElementoServices",function($http, $q, handleBehavior) {
     function sRegistrar (datos) {
       var request = $http({
             method : "post",
-            url : angular.patchURLCI+"CategoriaElemento/registrar",
-            data : datos
+            url : angular.patchURLCI+"Seguro/registrar",
+            data : datos,
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
       });
       return (request.then(handleBehavior.success,handleBehavior.error));
     }  
     function sEditar (datos) {
       var request = $http({
             method : "post",
-            url : angular.patchURLCI+"CategoriaElemento/editar",
-            data : datos
+            url : angular.patchURLCI+"Seguro/editar",
+            data : datos,
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
       });
       return (request.then(handleBehavior.success,handleBehavior.error));
     }   
     function sAnular (datos) {
       var request = $http({
             method : "post",
-            url : angular.patchURLCI+"CategoriaElemento/anular",
-            data : datos
-      });
-      return (request.then(handleBehavior.success,handleBehavior.error));
-    }     
-    function sListarCbo(datos) {
-      var request = $http({
-            method : "post",
-            url : angular.patchURLCI+"CategoriaElemento/listar_categoria_elemento_cbo", 
+            url : angular.patchURLCI+"Seguro/anular",
             data : datos
       });
       return (request.then(handleBehavior.success,handleBehavior.error));
     }
 });
 
-app.factory("CategoriaElementoFactory", function($uibModal, pinesNotifications, blockUI, CategoriaElementoServices) { 
+app.factory("SeguroFactory", function($uibModal, pinesNotifications, blockUI, SeguroServices) { 
   var interfaz = {
-    regCategoriaElementoModal: function (arrParams) {
+    regModal: function (arrParams) {
       blockUI.start('Abriendo formulario...');
       $uibModal.open({ 
-        templateUrl: angular.patchURLCI+'CategoriaElemento/ver_popup_formulario',
+        templateUrl: angular.patchURLCI+'Seguro/ver_popup_formulario',
         size: 'md',
         backdrop: 'static',
         keyboard:false,
@@ -202,13 +201,17 @@ app.factory("CategoriaElementoFactory", function($uibModal, pinesNotifications, 
           $scope.fData = {};
           $scope.metodos = arrParams.metodos;
           $scope.fArr = arrParams.fArr;
-          $scope.titleForm = 'Registro de Categoria Elemento';
+          $scope.titleForm = 'Registro de Seguro';
           $scope.cancel = function () {
             $uibModalInstance.dismiss('cancel');
           }
           $scope.aceptar = function () { 
             blockUI.start('Procesando información...');
-            CategoriaElementoServices.sRegistrar($scope.fData).then(function (rpta) {
+            var formData = new FormData();
+            angular.forEach($scope.fData,function (index,val) { 
+              formData.append(val,index);
+            });
+            SeguroServices.sRegistrar(formData).then(function (rpta) {
               if(rpta.flag == 1){
                 var pTitle = 'OK!';
                 var pType = 'success';
@@ -234,10 +237,10 @@ app.factory("CategoriaElementoFactory", function($uibModal, pinesNotifications, 
         }
       });
     },
-    editCategoriaElementoModal: function (arrParams) {
+    editModal: function (arrParams) {
       blockUI.start('Abriendo formulario...');
       $uibModal.open({ 
-        templateUrl: angular.patchURLCI+'CategoriaElemento/ver_popup_formulario',
+        templateUrl: angular.patchURLCI+'Seguro/ver_popup_formulario',
         size: 'md',
         backdrop: 'static',
         keyboard:false,
@@ -251,13 +254,17 @@ app.factory("CategoriaElementoFactory", function($uibModal, pinesNotifications, 
           }else{
             alert('Seleccione una sola fila');
           }
-          $scope.titleForm = 'Edición de Categoria Elemento';
+          $scope.titleForm = 'Edición de Seguro';
           $scope.cancel = function () {
             $uibModalInstance.dismiss('cancel');
           }
           $scope.aceptar = function () { 
             blockUI.start('Procesando información...');
-            CategoriaElementoServices.sEditar($scope.fData).then(function (rpta) {
+            var formData = new FormData();
+            angular.forEach($scope.fData,function (index,val) { 
+              formData.append(val,index);
+            });
+            SeguroServices.sEditar(formData).then(function (rpta) {
               if(rpta.flag == 1){
                 var pTitle = 'OK!';
                 var pType = 'success';

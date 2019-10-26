@@ -5,11 +5,13 @@
 	<form class="row" name="formSlidersHome"> 
 		<div class="form-group col-md-12 mb-md">
 			<label class="control-label mb-n"> Lema Principal <small class="text-danger">(*)</small> </label>
-			<input type="text" class="form-control input-sm" ng-model="fData.lema" required tabindex="10" />
+			<text-angular tabindex="10" ng-model="fData.lema" required></text-angular>
+			<!-- <input type="text" class="form-control input-sm" ng-model="fData.lema" required tabindex="10" /> -->
 		</div>
 		<div class="form-group col-md-12 mb-md">
 			<label class="control-label mb-n"> Lema Secundario <small class="text-danger">(*)</small> </label>
-			<input type="text" class="form-control input-sm" ng-model="fData.lema_alt" required tabindex="20" />
+			<text-angular tabindex="20" ng-model="fData.lema_alt" required></text-angular>
+			<!-- <input type="text" class="form-control input-sm" ng-model="fData.lema_alt" required tabindex="20" /> -->
 		</div>
 		<div class="form-group col-md-12 mb-md">
 			<label class="control-label mb-n"> URL de Redirección <small class="text-danger">(*)</small> </label>

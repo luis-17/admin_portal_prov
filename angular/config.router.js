@@ -36,7 +36,9 @@ angular.module('app')
           .state('app.dashboard', {
             url: '/dashboard',
             templateUrl: 'tpl/app_dashboard.html',
-            resolve: load(['angular/controllers/chart.js'])
+            resolve: load([
+              'angular/controllers/chart.js',
+            ])
           })
           .state('app.sliders-home', {
             url: '/sliders-home',
@@ -69,28 +71,18 @@ angular.module('app')
               'angular/controllers/EspecialidadCtrl.js' 
             ]) 
           })
-          .state('app.transportista', {
-            url: '/transportista',
-            templateUrl: 'tpl/transportista.html',
-            resolve: load([
-              'angular/controllers/TransportistaCtrl.js' 
-            ]) 
-          })
-          .state('app.producto', {
-            url: '/producto',
-            templateUrl: 'tpl/producto.html',
-            resolve: load([
-              'angular/controllers/ProductoCtrl.js',
-              'angular/controllers/CategoriaElementoCtrl.js',
-              'angular/controllers/UnidadMedidaCtrl.js'
-            ]) 
-          })
           .state('app.servicio', { 
             url: '/servicio', 
             templateUrl: 'tpl/servicio.html', 
             resolve: load([
-              'angular/controllers/ServicioCtrl.js', 
-              'angular/controllers/CategoriaElementoCtrl.js' 
+              'angular/controllers/ServicioCtrl.js'
+            ]) 
+          })
+          .state('app.seguro', { 
+            url: '/seguro', 
+            templateUrl: 'tpl/seguro.html', 
+            resolve: load([
+              'angular/controllers/SeguroCtrl.js' 
             ]) 
           })
           .state('app.blog', { 
@@ -100,58 +92,6 @@ angular.module('app')
               'angular/controllers/BlogCtrl.js'
             ]) 
           })
-          .state('app.unidad-medida', {
-            url: '/unidad-medida',
-            templateUrl: 'tpl/unidad-medida.html',
-            resolve: load([
-              'angular/controllers/UnidadMedidaCtrl.js'
-            ]) 
-          })
-          .state('app.caracteristica', {
-            url: '/caracteristica',
-            templateUrl: 'tpl/caracteristica.html',
-            resolve: load([
-              'angular/controllers/CaracteristicaCtrl.js'
-            ]) 
-          })
-          .state('app.banco', {
-            url: '/banco',
-            templateUrl: 'tpl/banco.html',
-            resolve: load([
-              'angular/controllers/BancoCtrl.js'
-            ]) 
-          })     
-          .state('app.empresa-admin', {
-            url: '/empresa-admin',
-            templateUrl: 'tpl/empresa-admin.html',
-            resolve: load([
-              'angular/controllers/EmpresaAdminCtrl.js',
-              'angular/controllers/BancoCtrl.js',
-              'angular/controllers/BancoEmpresaAdminCtrl.js'
-            ]) 
-          })  
-          .state('app.categoria-elemento', {
-            url: '/categoria-elemento',
-            templateUrl: 'tpl/categoria-elemento.html',
-            resolve: load([
-              'angular/controllers/CategoriaElementoCtrl.js'         
-            ]) 
-          })  
-          .state('app.colaborador', {
-            url: '/colaborador',
-            templateUrl: 'tpl/colaborador.html',
-            resolve: load([
-              'angular/controllers/ColaboradorCtrl.js',
-              'angular/controllers/UsuarioCtrl.js'         
-            ]) 
-          })    
-          .state('app.sede', {
-            url: '/sede',
-            templateUrl: 'tpl/sede.html',
-            resolve: load([
-              'angular/controllers/SedeCtrl.js'      
-            ]) 
-          })  
           .state('app.usuario', {
             url: '/usuario',
             templateUrl: 'tpl/usuario.html',
@@ -170,45 +110,7 @@ angular.module('app')
               'angular/controllers/ClienteEmpresaCtrl.js',
               'angular/controllers/ClienteCtrl.js'   
             ]) 
-          }) 
-          .state('app.variable-car', {
-            url: '/variable-car',
-            templateUrl: 'tpl/variable-car.html',
-            resolve: load([
-              'angular/controllers/VariableCarCtrl.js'      
-            ]) 
-          })   
-          .state('app.formas-pago', {
-            url: '/formas-pago',
-            templateUrl: 'tpl/forma-pago.html',
-            resolve: load([
-              'angular/controllers/FormaPagoCtrl.js',
-              'angular/controllers/PlazoFormaPagoCtrl.js'        
-            ]) 
-          }) 
-          .state('app.caja', {
-            url: '/caja',
-            templateUrl: 'tpl/caja.html',
-            resolve: load([
-              'angular/controllers/CajaCtrl.js',
-              'angular/controllers/SerieCtrl.js'
-            ]) 
-          })     
-          .state('app.documento-serie', {
-            url: '/documento-serie',
-            templateUrl: 'tpl/documento-serie.html',
-            resolve: load([     
-              'angular/controllers/TipoDocumentoMovCtrl.js',
-              'angular/controllers/SerieCtrl.js'
-            ]) 
-          })   
-          .state('app.categoria-cliente', {
-            url: '/categoria-cliente',
-            templateUrl: 'tpl/categoria-cliente.html',
-            resolve: load([
-              'angular/controllers/CategoriaClienteCtrl.js'
-            ]) 
-          })                                                                                    
+          })                                                                            
           .state('lockme', {
               url: '/lockme',
               templateUrl: 'tpl/page_lockme.html'
