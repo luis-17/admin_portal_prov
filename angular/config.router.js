@@ -85,6 +85,13 @@ angular.module('app')
               'angular/controllers/SeguroCtrl.js' 
             ]) 
           })
+          .state('app.promocion', { 
+            url: '/promocion', 
+            templateUrl: 'tpl/promocion.html', 
+            resolve: load([
+              'angular/controllers/PromocionCtrl.js'
+            ])
+          })
           .state('app.blog', { 
             url: '/blog', 
             templateUrl: 'tpl/blog.html', 
