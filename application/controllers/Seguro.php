@@ -74,7 +74,7 @@ class Seguro extends CI_Controller {
     	$this->db->trans_start();
 		if( !empty($_FILES['logo_blob']) ){
 			$allInputs['extension'] = pathinfo($_FILES['logo_blob']['name'], PATHINFO_EXTENSION);
-    		$allInputs['nuevoNombreArchivo'] = $allInputs['nombre'].'_tes.'.$allInputs['extension'];
+    		$allInputs['nuevoNombreArchivo'] = cleanString($allInputs['nombre']).'_tes.'.$allInputs['extension'];
     		if( subir_fichero('assets/dinamic/seguro','logo_blob',$allInputs['nuevoNombreArchivo']) ){
 				$allInputs['logo'] = $allInputs['nuevoNombreArchivo'];
 			}
@@ -101,7 +101,7 @@ class Seguro extends CI_Controller {
     	$this->db->trans_start();
 		if( !empty($_FILES['logo_blob']) ){
 			$allInputs['extension'] = pathinfo($_FILES['logo_blob']['name'], PATHINFO_EXTENSION);
-    		$allInputs['nuevoNombreArchivo'] = $allInputs['nombre'].'_tes.'.$allInputs['extension'];
+    		$allInputs['nuevoNombreArchivo'] = cleanString($allInputs['nombre']).'_tes.'.$allInputs['extension'];
     		if( subir_fichero('assets/dinamic/seguro','logo_blob',$allInputs['nuevoNombreArchivo']) ){
 				$allInputs['logo'] = $allInputs['nuevoNombreArchivo'];
 			}

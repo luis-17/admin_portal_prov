@@ -71,7 +71,7 @@ class Promocion extends CI_Controller {
     	$this->db->trans_start();
 		if( !empty($_FILES['foto_blob']) ){
 			$allInputs['extension'] = pathinfo($_FILES['foto_blob']['name'], PATHINFO_EXTENSION);
-    		$allInputs['nuevoNombreArchivo'] = $allInputs['titulo'].'_tes.'.$allInputs['extension'];
+    		$allInputs['nuevoNombreArchivo'] = cleanString($allInputs['titulo']).'_tes.'.$allInputs['extension'];
     		if( subir_fichero('assets/dinamic/promocion','foto_blob',$allInputs['nuevoNombreArchivo']) ){
 				$allInputs['foto'] = $allInputs['nuevoNombreArchivo'];
 			}
@@ -98,7 +98,7 @@ class Promocion extends CI_Controller {
     	$this->db->trans_start();
 		if( !empty($_FILES['foto_blob']) ){
 			$allInputs['extension'] = pathinfo($_FILES['foto_blob']['name'], PATHINFO_EXTENSION);
-    		$allInputs['nuevoNombreArchivo'] = $allInputs['titulo'].'_tes.'.$allInputs['extension'];
+    		$allInputs['nuevoNombreArchivo'] = cleanString($allInputs['titulo']).'_tes.'.$allInputs['extension'];
     		if( subir_fichero('assets/dinamic/promocion','foto_blob',$allInputs['nuevoNombreArchivo']) ){
 				$allInputs['foto'] = $allInputs['nuevoNombreArchivo'];
 			}
