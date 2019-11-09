@@ -37,6 +37,7 @@ class StaffMedico extends CI_Controller {
 					'ap_paterno' => $row['ap_paterno'],
 					'ap_materno' => $row['ap_materno'],
 					'sexo' => $row['sexo'],
+					'tipo_colegiatura' => $row['tipo_colegiatura'],
 					'cmp' => $row['cmp'],
 					'rne' => $row['rne'],
 					'lema' => $row['lema'],
@@ -95,6 +96,7 @@ class StaffMedico extends CI_Controller {
 			    ->set_output(json_encode($arrData));
 			return;
    		}
+   		$allInputs['tipo_colegiatura'] = $this->input->post('tipo_colegiatura');
     	$allInputs['nombres'] = $this->input->post('nombres');
     	$allInputs['ap_paterno'] = $this->input->post('ap_paterno');
     	$allInputs['ap_materno'] = $this->input->post('ap_materno');
@@ -149,6 +151,7 @@ class StaffMedico extends CI_Controller {
 			    ->set_output(json_encode($arrData));
 			return;
    		}
+   		$allInputs['tipo_colegiatura'] = $this->input->post('tipo_colegiatura');
    		$allInputs['nombres'] = $this->input->post('nombres');
     	$allInputs['ap_paterno'] = $this->input->post('ap_paterno');
     	$allInputs['ap_materno'] = $this->input->post('ap_materno');

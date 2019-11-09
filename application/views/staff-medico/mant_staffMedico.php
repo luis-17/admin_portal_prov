@@ -15,6 +15,15 @@
 			<label class="control-label mb-n"> Ap. Materno: <small class="text-danger">(*)</small> </label>
 			<input type="text" class="form-control input-sm" ng-model="fData.ap_materno" placeholder="Ingrese Apellido Paterno" required tabindex="30" />
 		</div>
+		<div class="form-group col-md-6 mb-md">
+			<label class="control-label mb-n"> Tipo de Colegiatura: <small class="text-danger">(*)</small> </label>
+			<select class="form-control input-sm" ng-model="fData.tipo_colegiatura" tabindex="35" required>
+				<option value="CMP">CMP</option>
+				<option value="CNP">CNP</option>
+				<option value="COP">COP</option>
+				<!-- <option value="RNE">RNE</option> -->
+			</select>
+		</div>
 		<div class="form-group col-md-3 mb-md">
 			<label class="control-label mb-n"> CMP: <small class="text-danger">(*)</small> </label>
 			<input type="text" class="form-control input-sm" ng-model="fData.cmp" placeholder="Ingrese CMP" tabindex="40" required />

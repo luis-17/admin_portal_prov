@@ -40,7 +40,8 @@ app.controller('StaffMedicoCtrl', ['$scope', '$filter', '$uibModal', '$bootbox',
 		      { field: 'nombres', name: 'nombres', displayName: 'Nombres', minWidth: 150 },
 		      { field: 'ap_paterno', name: 'ap_paterno', displayName: 'Apellido Pat.', minWidth: 120 },
 		      { field: 'ap_materno', name: 'ap_materno', displayName: 'Apellido Mat.', minWidth: 120 },
-		      { field: 'cmp', name: 'cmp', displayName: 'CMP.', minWidth: 80 },
+		      { field: 'tipo_colegiatura', name: 'tipo_colegiatura', displayName: 'Tipo Colegiatura', minWidth: 80 },
+		      { field: 'cmp', name: 'cmp', displayName: 'Colegiatura', minWidth: 80 },
 		      { field: 'estado', type: 'object', name: 'estado', displayName: 'ESTADO', width: '95', enableFiltering: false, enableSorting: false, enableColumnMenus: false, enableColumnMenu: false, 
 	          cellTemplate:'<div class="ui-grid-cell-contents">' + 
 	            '<label tooltip-placement="left" tooltip="{{ COL_FIELD.labelText }}" class=" label {{ COL_FIELD.claseLabel }} ml-xs">'+ 
@@ -82,7 +83,8 @@ app.controller('StaffMedicoCtrl', ['$scope', '$filter', '$uibModal', '$bootbox',
 		          'me.nombres' : grid.columns[2].filters[0].term,
 		          'me.ap_paterno' : grid.columns[3].filters[0].term,
 		          'me.ap_materno' : grid.columns[4].filters[0].term,
-		          'me.cmp' : grid.columns[5].filters[0].term
+		          'me.tipo_colegiatura' : grid.columns[5].filters[0].term,
+		          'me.cmp' : grid.columns[6].filters[0].term
 		        }
 		        $scope.metodos.getPaginationServerSide();
 		      });

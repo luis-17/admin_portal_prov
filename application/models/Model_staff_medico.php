@@ -5,7 +5,7 @@ class Model_staff_medico extends CI_Model {
 		parent::__construct();
 	}
 	public function m_cargar_staff($paramPaginate=FALSE){
-		$this->db->select('me.idmedico, me.nombres, me.ap_paterno, me.ap_materno, me.cmp, me.rne, me.lema, 
+		$this->db->select('me.idmedico, me.nombres, me.ap_paterno, me.ap_materno, me.tipo_colegiatura, me.cmp, me.rne, me.lema, 
 			me.estudios_html, me.foto, me.foto_perfil, me.visible, me.sexo');
 		$this->db->from('medico me');			
 		if( isset($paramPaginate['search'] ) && $paramPaginate['search'] ){
@@ -63,6 +63,7 @@ class Model_staff_medico extends CI_Model {
 			'nombres' => strtoupper($datos['nombres']), 
 			'ap_paterno' => strtoupper($datos['ap_paterno']),
 			'ap_materno' => strtoupper($datos['ap_materno']),	
+			'tipo_colegiatura' => $datos['tipo_colegiatura'],
 			'cmp' => $datos['cmp'],
 			'rne' => $datos['rne'],
 			'sexo' => $datos['sexo'],
@@ -78,7 +79,8 @@ class Model_staff_medico extends CI_Model {
 		$data = array(
 			'nombres' => strtoupper($datos['nombres']), 
 			'ap_paterno' => strtoupper($datos['ap_paterno']),
-			'ap_materno' => strtoupper($datos['ap_materno']),	
+			'ap_materno' => strtoupper($datos['ap_materno']),
+			'tipo_colegiatura' => $datos['tipo_colegiatura'],
 			'cmp' => $datos['cmp'],
 			'rne' => $datos['rne'],
 			'sexo' => $datos['sexo'],
