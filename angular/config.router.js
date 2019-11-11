@@ -78,6 +78,13 @@ angular.module('app')
               'angular/controllers/ServicioCtrl.js'
             ]) 
           })
+          .state('app.convenio', { 
+            url: '/convenio', 
+            templateUrl: 'tpl/convenio.html', 
+            resolve: load([
+              'angular/controllers/ConvenioCtrl.js'
+            ]) 
+          })
           .state('app.seguro', { 
             url: '/seguro', 
             templateUrl: 'tpl/seguro.html', 
