@@ -257,6 +257,7 @@ app.factory("EspecialidadFactory", function($uibModal, pinesNotifications, block
           $scope.titleForm = 'Registro de Especialidad';
           $scope.fData.visible = 0;
           $scope.fData.visible_home = 0;
+          $scope.fData.reserva_cita = 1;
           $scope.cancel = function () {
             $uibModalInstance.dismiss('cancel');
           }

@@ -7,7 +7,7 @@ class Model_especialidad extends CI_Model {
 
 	public function m_cargar_especialidad($paramPaginate){ 
 		$this->db->select("es.idespecialidad, es.nombre, es.descripcion_html, es.uri, es.image_banner, 
-			es.icono_home, es.visible, es.visible_home, es.tiene_landing");
+			es.icono_home, es.visible, es.visible_home, es.reserva_cita, es.tiene_landing");
 		$this->db->from('especialidad es');
 		$this->db->where('estado', 1);
 		if( isset($paramPaginate['search'] ) && $paramPaginate['search'] ){
@@ -114,7 +114,8 @@ class Model_especialidad extends CI_Model {
 			'descripcion_html' => nl2br($datos['descripcion_html']),
 			'uri' => $datos['uri'],
 			'visible'=> $datos['visible'],
-			'visible_home'=> $datos['visible_home']
+			'visible_home'=> $datos['visible_home'],
+			'reserva_cita'=> $datos['reserva_cita']
 			// 'tiene_landing'=> $datos['tiene_landing']
 		);
 		return $this->db->insert('especialidad', $data); 
@@ -127,7 +128,8 @@ class Model_especialidad extends CI_Model {
 			'descripcion_html' => nl2br($datos['descripcion_html']),
 			'uri' => $datos['uri'],
 			'visible'=> $datos['visible'],
-			'visible_home'=> $datos['visible_home']
+			'visible_home'=> $datos['visible_home'],
+			'reserva_cita'=> $datos['reserva_cita']
 			// 'tiene_landing'=> $datos['tiene_landing']
 		);
 		if( !empty($datos['icono_home']) ){

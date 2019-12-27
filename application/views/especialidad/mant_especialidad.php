@@ -31,6 +31,11 @@
 				<input type="checkbox" ng-model="fData.visible_home" ng-checked="fData.visible_home" ng-false-value="0" ng-true-value="1"> ¿Es Visible en Home?
 			</label>						
         </div>
+        <div class="form-group col-md-6 mb-md"> 
+			<label class="checkbox block">
+				<input type="checkbox" ng-model="fData.reserva_cita" ng-checked="fData.reserva_cita" ng-false-value="0" ng-true-value="1"> ¿Reserva Cita(botón)?
+			</label>						
+        </div>
         <div class="form-group col-md-6 col-sm-12 mb-md">
 			<label class="control-label mb-xs"> Icono de Especialidad (120px * 120px) </label>
 			<div class="fileinput fileinput-new" data-provides="fileinput" style="width: 100%;">

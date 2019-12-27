@@ -222,3 +222,8 @@ form.edit-form input, form.edit-form select {
 .fileinput.input-group > .btn-file {
   z-index: 1;
 }
+
+.form-group .checkbox input{
+  margin: auto;
+  position: relative;
+}

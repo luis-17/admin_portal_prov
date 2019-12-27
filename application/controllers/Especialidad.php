@@ -41,6 +41,7 @@ class Especialidad extends CI_Controller {
 					'icono_home' => $row['icono_home'],
 					'visible' => (int)$row['visible'],
 					'visible_home' => (int)$row['visible_home'],
+					'reserva_cita' => (int)$row['reserva_cita'],
 					'tiene_landing' => $row['tiene_landing'],
 					'visible_obj' => array(
 						'claseLabel' => $strClaseLabel,
@@ -154,6 +155,7 @@ class Especialidad extends CI_Controller {
    		
    		$allInputs['visible'] = $this->input->post('visible');
    		$allInputs['visible_home'] = $this->input->post('visible_home');
+   		$allInputs['reserva_cita'] = $this->input->post('reserva_cita');
    		$allInputs['icono_home'] = 'default_proceso.png';
     	$allInputs['image_banner'] = 'default_proceso.png';
     	$this->db->trans_start();
@@ -211,6 +213,7 @@ class Especialidad extends CI_Controller {
    		$allInputs['descripcion_html'] = $this->input->post('descripcion_html');
    		$allInputs['visible'] = $this->input->post('visible');
    		$allInputs['visible_home'] = $this->input->post('visible_home');
+   		$allInputs['reserva_cita'] = $this->input->post('reserva_cita');
     	$this->db->trans_start();
     	if( !empty($_FILES['icono_home_blob']) ){
 			$allInputs['extension'] = pathinfo($_FILES['icono_home_blob']['name'], PATHINFO_EXTENSION);
