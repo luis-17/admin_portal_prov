@@ -36,6 +36,8 @@ class Especialidad extends CI_Controller {
 					'idespecialidad' => $row['idespecialidad'],
 					'nombre' => $row['nombre'],
 					'descripcion_html' => $row['descripcion_html'],
+					'titulo_seo' => $row['titulo_seo'],
+					'meta_content_seo' => $row['meta_content_seo'],
 					'uri' => $row['uri'],
 					'image_banner' => $row['image_banner'],
 					'icono_home' => $row['icono_home'],
@@ -151,6 +153,8 @@ class Especialidad extends CI_Controller {
 			    ->set_output(json_encode($arrData));
 			return;
    		}
+   		$allInputs['titulo_seo'] = $this->input->post('titulo_seo');
+   		$allInputs['meta_content_seo'] = $this->input->post('meta_content_seo');
    		$allInputs['descripcion_html'] = $this->input->post('descripcion_html');
    		
    		$allInputs['visible'] = $this->input->post('visible');
@@ -210,6 +214,8 @@ class Especialidad extends CI_Controller {
 			    ->set_output(json_encode($arrData));
 			return;
    		}
+   		$allInputs['titulo_seo'] = $this->input->post('titulo_seo');
+   		$allInputs['meta_content_seo'] = $this->input->post('meta_content_seo');
    		$allInputs['descripcion_html'] = $this->input->post('descripcion_html');
    		$allInputs['visible'] = $this->input->post('visible');
    		$allInputs['visible_home'] = $this->input->post('visible_home');

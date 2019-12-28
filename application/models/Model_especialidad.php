@@ -6,7 +6,7 @@ class Model_especialidad extends CI_Model {
 	}
 
 	public function m_cargar_especialidad($paramPaginate){ 
-		$this->db->select("es.idespecialidad, es.nombre, es.descripcion_html, es.uri, es.image_banner, 
+		$this->db->select("es.idespecialidad, es.nombre, es.descripcion_html, es.uri, es.image_banner, es.titulo_seo, es.meta_content_seo, 
 			es.icono_home, es.visible, es.visible_home, es.reserva_cita, es.tiene_landing");
 		$this->db->from('especialidad es');
 		$this->db->where('estado', 1);
@@ -112,6 +112,8 @@ class Model_especialidad extends CI_Model {
 		$data = array(
 			'nombre' => strtoupper($datos['nombre']),
 			'descripcion_html' => nl2br($datos['descripcion_html']),
+			'titulo_seo' => $datos['titulo_seo'],
+			'meta_content_seo' => $datos['meta_content_seo'],
 			'uri' => $datos['uri'],
 			'visible'=> $datos['visible'],
 			'visible_home'=> $datos['visible_home'],
@@ -126,6 +128,8 @@ class Model_especialidad extends CI_Model {
 		$data = array(
 			'nombre' => strtoupper($datos['nombre']),
 			'descripcion_html' => nl2br($datos['descripcion_html']),
+			'titulo_seo' => $datos['titulo_seo'],
+			'meta_content_seo' => $datos['meta_content_seo'],
 			'uri' => $datos['uri'],
 			'visible'=> $datos['visible'],
 			'visible_home'=> $datos['visible_home'],

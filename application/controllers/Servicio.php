@@ -52,6 +52,8 @@ class Servicio extends CI_Controller {
 					'descripcion_html' => $row['descripcion_html'],
 					'como_acceder' => $row['como_acceder'],
 					'alias' => $row['alias'],
+					'titulo_seo' => $row['titulo_seo'],
+					'meta_content_seo' => $row['meta_content_seo'],
 					'embed_video' => $row['embed_video'],
 					'imagen_portada' => $row['imagen_portada'],
 					'icono_servicio' => $row['icono_servicio'],
@@ -124,6 +126,8 @@ class Servicio extends CI_Controller {
 			    ->set_output(json_encode($arrData));
 			return;
    		}
+   		$allInputs['titulo_seo'] = $this->input->post('titulo_seo');
+   		$allInputs['meta_content_seo'] = $this->input->post('meta_content_seo');
    		$allInputs['descripcion_html'] = $this->input->post('descripcion_html');
    		$allInputs['como_acceder'] = $this->input->post('como_acceder');
    		
@@ -196,6 +200,8 @@ class Servicio extends CI_Controller {
 			    ->set_output(json_encode($arrData));
 			return;
    		}
+   		$allInputs['titulo_seo'] = $this->input->post('titulo_seo');
+   		$allInputs['meta_content_seo'] = $this->input->post('meta_content_seo');
    		$allInputs['descripcion_html'] = $this->input->post('descripcion_html');
    		$allInputs['como_acceder'] = $this->input->post('como_acceder');
    		$allInputs['visible'] = $this->input->post('visible');

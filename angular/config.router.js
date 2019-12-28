@@ -124,7 +124,14 @@ angular.module('app')
               'angular/controllers/ClienteEmpresaCtrl.js',
               'angular/controllers/ClienteCtrl.js'   
             ]) 
-          })                                                                            
+          })
+          .state('app.pagina-seo', {
+            url: '/pagina-seo',
+            templateUrl: 'tpl/pagina-seo.html',
+            resolve: load([      
+              'angular/controllers/PaginaCtrl.js'
+            ]) 
+          })                                                                             
           .state('lockme', {
               url: '/lockme',
               templateUrl: 'tpl/page_lockme.html'

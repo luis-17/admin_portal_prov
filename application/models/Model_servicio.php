@@ -7,7 +7,7 @@ class Model_servicio extends CI_Model {
 
 	public function m_cargar_servicio($paramPaginate){ 
 		$this->db->select("se.idservicio, se.nombre, se.descripcion_html, se.como_acceder, se.alias, se.imagen_portada, 
-			se.icono_servicio, se.icono_servicio_lg, se.visible, se.visible_esp, se.visible_menu, se.embed_video");
+			se.icono_servicio, se.icono_servicio_lg, se.visible, se.visible_esp, se.visible_menu, se.embed_video, se.titulo_seo, se.meta_content_seo");
 		$this->db->from('servicio se');
 		$this->db->where('estado', 1);
 		if( isset($paramPaginate['search'] ) && $paramPaginate['search'] ){
@@ -83,6 +83,8 @@ class Model_servicio extends CI_Model {
 			'imagen_portada'=> $datos['imagen_portada'],
 			'icono_servicio'=> $datos['icono_servicio'],
 			'icono_servicio_lg'=> $datos['icono_servicio_lg'],
+			'titulo_seo' => $datos['titulo_seo'],
+			'meta_content_seo' => $datos['meta_content_seo'],
 			'alias' => $datos['alias'],
 			'visible'=> $datos['visible'],
 			'visible_menu'=> $datos['visible_menu'],
@@ -99,8 +101,8 @@ class Model_servicio extends CI_Model {
 			'nombre'=> $datos['nombre'],
 			'descripcion_html'=> nl2br($datos['descripcion_html']),
 			'como_acceder'=> empty($datos['como_acceder']) ? NULL : nl2br($datos['como_acceder']),
-			// 'imagen_portada'=> $datos['imagen_portada'],
-			// 'icono_servicio'=> $datos['icono_servicio'],
+			'titulo_seo' => $datos['titulo_seo'],
+			'meta_content_seo' => $datos['meta_content_seo'],
 			'alias' => $datos['alias'],
 			'visible'=> $datos['visible'],
 			'visible_menu'=> $datos['visible_menu'],

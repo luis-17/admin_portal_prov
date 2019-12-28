@@ -10,7 +10,14 @@
 		<div class="form-group col-md-12 mb-md">
 			<label class="control-label mb-n"> Descripción: <small class="text-danger">(*)</small> </label>
 			<text-angular tabindex="200" ng-model="fData.descripcion_html" required></text-angular>
-			<!-- <textarea class="form-control input-sm" ng-model="fData.descripcion_html" placeholder="Descripción" tabindex="70"></textarea> -->
+		</div>
+		<div class="form-group col-md-12 mb-md">
+			<label class="control-label mb-n"> Meta Título SEO (entre 35 y 65 caracteres) <small class="text-danger">(*)</small> </label>
+			<input type="text" class="form-control input-sm" ng-model="fData.titulo_seo" placeholder="Meta Título SEO" required tabindex="240" />
+		</div>
+		<div class="form-group col-md-12 mb-md">
+			<label class="control-label mb-n"> Meta Contenido SEO ( máximo 156 caracteres) <small class="text-danger">(*)</small> </label>
+			<textarea class="form-control input-sm" ng-model="fData.meta_content_seo" placeholder="Meta Contenido SEO" tabindex="241" rows="5" required></textarea>
 		</div>
 		<div class="form-group col-md-6 mb-md">
 			<label class="control-label mb-n"> URI: </label>

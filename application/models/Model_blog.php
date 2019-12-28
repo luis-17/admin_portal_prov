@@ -6,7 +6,7 @@ class Model_blog extends CI_Model {
 	}
 
 	public function m_cargar_blog($paramPaginate){ 
-		$this->db->select("bl.idblog, bl.titulo, bl.contenido_html, bl.autor, bl.cargo_autor, bl.foto_autor, 
+		$this->db->select("bl.idblog, bl.titulo, bl.contenido_html, bl.autor, bl.cargo_autor, bl.foto_autor, bl.titulo_seo, bl.meta_content_seo, 
 			bl.imagen_preview, bl.imagen_portada, bl.uri, bl.fecha_publicacion, bl.embed_video, bl.visible, bl.estado");
 		$this->db->from('blog bl');
 		$this->db->where('bl.estado', 1);
@@ -17,7 +17,6 @@ class Model_blog extends CI_Model {
 				}
 			}
 		}
-
 		if( $paramPaginate['sortName'] ){
 			$this->db->order_by($paramPaginate['sortName'], $paramPaginate['sort']);
 		}
@@ -60,6 +59,8 @@ class Model_blog extends CI_Model {
 			'contenido_html'=> nl2br($datos['contenido_html']),
 			'autor'=> $datos['autor'],
 			'cargo_autor'=> $datos['cargo_autor'],
+			'titulo_seo'=> $datos['titulo_seo'],
+			'meta_content_seo'=> $datos['meta_content_seo'],
 			'foto_autor'=> $datos['foto_autor'],
 			'imagen_preview'=> $datos['imagen_preview'],
 			'imagen_portada'=> $datos['imagen_portada'],
@@ -79,6 +80,8 @@ class Model_blog extends CI_Model {
 			'contenido_html'=> nl2br($datos['contenido_html']),
 			'autor'=> $datos['autor'],
 			'cargo_autor'=> $datos['cargo_autor'],
+			'titulo_seo'=> $datos['titulo_seo'],
+			'meta_content_seo'=> $datos['meta_content_seo'],
 			// 'foto_autor'=> $datos['foto_autor'],
 			// 'imagen_preview'=> $datos['imagen_preview'],
 			// 'imagen_portada'=> $datos['imagen_portada'],

@@ -28,6 +28,14 @@
 				<input type="checkbox" ng-model="fData.visible" ng-checked="fData.visible" ng-false-value="0" ng-true-value="1"> ¿Es Visible?
 			</label>						
         </div>
+        <div class="form-group col-md-12 mb-md">
+			<label class="control-label mb-n"> Meta Título SEO (entre 35 y 65 caracteres) <small class="text-danger">(*)</small> </label>
+			<input type="text" class="form-control input-sm" ng-model="fData.titulo_seo" placeholder="Meta Título SEO" required tabindex="45" />
+		</div>
+		<div class="form-group col-md-12 mb-md">
+			<label class="control-label mb-n"> Meta Contenido SEO ( máximo 156 caracteres) <small class="text-danger">(*)</small> </label>
+			<textarea class="form-control input-sm" ng-model="fData.meta_content_seo" placeholder="Meta Contenido SEO" tabindex="46" rows="5" required></textarea>
+		</div>
 		<div class="form-group col-md-12 mb-md">
 			<label class="control-label mb-n"> Contenido: <small class="text-danger">(*)</small> </label>
 			<text-angular tabindex="50" ng-model="fData.contenido_html" required></text-angular>

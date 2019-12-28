@@ -40,6 +40,8 @@ class Blog extends CI_Controller {
 					'contenido_html' => $row['contenido_html'],
 					'autor' => $row['autor'],
 					'cargo_autor' => $row['cargo_autor'],
+					'titulo_seo' => $row['titulo_seo'],
+					'meta_content_seo' => $row['meta_content_seo'],
 					'embed_video' => $row['embed_video'],
 					'foto_autor' => $row['foto_autor'],
 					'imagen_preview' => $row['imagen_preview'],
@@ -97,6 +99,8 @@ class Blog extends CI_Controller {
    		$allInputs['visible'] = $this->input->post('visible');
    		$allInputs['autor'] = $this->input->post('autor');
    		$allInputs['cargo_autor'] = $this->input->post('cargo_autor');
+   		$allInputs['titulo_seo'] = $this->input->post('titulo_seo');
+   		$allInputs['meta_content_seo'] = $this->input->post('meta_content_seo');
    		$allInputs['fecha_publicacion'] = $this->input->post('fecha_publicacion');
    		$allInputs['embed_video'] = $this->input->post('embed_video');
    		if($allInputs['embed_video'] === 'null'){
@@ -159,6 +163,8 @@ class Blog extends CI_Controller {
    		$allInputs['visible'] = $this->input->post('visible');
    		$allInputs['autor'] = $this->input->post('autor');
    		$allInputs['cargo_autor'] = $this->input->post('cargo_autor');
+   		$allInputs['titulo_seo'] = $this->input->post('titulo_seo');
+   		$allInputs['meta_content_seo'] = $this->input->post('meta_content_seo');
    		$allInputs['fecha_publicacion'] = $this->input->post('fecha_publicacion');
    		$allInputs['embed_video'] = $this->input->post('embed_video');
    		if($allInputs['embed_video'] === 'null'){
