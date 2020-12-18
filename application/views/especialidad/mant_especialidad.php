@@ -26,7 +26,7 @@
 		<!-- <div class="form-group col-md-6 mb-md"> 
 			<label class="checkbox block">
 				<input type="checkbox" ng-model="fData.visible" ng-checked="fData.visible"> ¿Tiene Landing?
-			</label>						
+			</label>
         </div> -->
 		<div class="form-group col-md-6 mb-md"> 
 			<label class="checkbox block">
