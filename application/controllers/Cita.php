@@ -6,7 +6,8 @@ class Cita extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-    $this->load->helper(array('security','imagen_helper','otros_helper','fechas_helper'));
+		$this->load->helper(array('security','imagen_helper','otros_helper','fechas_helper'));
+		$this->load->library(array('excel'));
     // $dbCitas = $this->load->database('citas', TRUE);
 		$this->load->model(array('model_cita'));
 		//cache
