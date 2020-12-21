@@ -26,7 +26,7 @@ class Model_cita extends CI_Model {
 		}
 		
 		$dbCitas->where_in('cl.estado_pac', array(1));
-		$dbCitas->where('ci.fecha_cita BETWEEN '. $dbCitas->escape( darFormatoYMD($paramDatos['desde']).' '.$paramDatos['desdeHora'].':'.$paramDatos['desdeMinuto']) .' AND ' 
+		$dbCitas->where('ci.fecha_registro BETWEEN '. $dbCitas->escape( darFormatoYMD($paramDatos['desde']).' '.$paramDatos['desdeHora'].':'.$paramDatos['desdeMinuto']) .' AND ' 
 			. $dbCitas->escape( darFormatoYMD($paramDatos['hasta']).' '.$paramDatos['hastaHora'].':'.$paramDatos['hastaMinuto']));
 		if( isset($paramPaginate['search'] ) && $paramPaginate['search'] ){
 			foreach ($paramPaginate['searchColumn'] as $key => $value) {
@@ -60,7 +60,7 @@ class Model_cita extends CI_Model {
 			$dbCitas->where_in('ci.estado_cita', array(0));
 		}
 		$dbCitas->where_in('cl.estado_pac', array(1));
-		$dbCitas->where('ci.fecha_cita BETWEEN '. $dbCitas->escape( darFormatoYMD($paramDatos['desde']).' '.$paramDatos['desdeHora'].':'.$paramDatos['desdeMinuto']) .' AND ' 
+		$dbCitas->where('ci.fecha_registro BETWEEN '. $dbCitas->escape( darFormatoYMD($paramDatos['desde']).' '.$paramDatos['desdeHora'].':'.$paramDatos['desdeMinuto']) .' AND ' 
 			. $dbCitas->escape( darFormatoYMD($paramDatos['hasta']).' '.$paramDatos['hastaHora'].':'.$paramDatos['hastaMinuto']));
 		if( isset($paramPaginate['search'] ) && $paramPaginate['search'] ){
 			foreach ($paramPaginate['searchColumn'] as $key => $value) {
