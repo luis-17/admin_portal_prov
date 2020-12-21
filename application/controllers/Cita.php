@@ -92,7 +92,7 @@ class Cita extends CI_Controller {
 			foreach ($lista as $row) {
 				if ( $row['estado_cita'] == '1' ){
 					$estado = 'ACTIVO';
-				}elseif ( $row['estado'] == '0' ){
+				}elseif ( $row['estado_cita'] == '0' ){
 					$estado = 'ANULADO';
 				}else {
 					$estado = '';
