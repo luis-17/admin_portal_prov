@@ -115,7 +115,7 @@ angular.module('app')
               'angular/controllers/UsuarioEmpresaAdminCtrl.js',
               'angular/controllers/EmpresaAdminCtrl.js'               
             ]) 
-          })    
+          })
           .state('app.contacto', {
             url: '/contacto',
             templateUrl: 'tpl/contacto.html',
@@ -131,7 +131,14 @@ angular.module('app')
             resolve: load([      
               'angular/controllers/PaginaCtrl.js'
             ]) 
-          })                                                                             
+          })
+          .state('app.reporte-citas', {
+            url: '/reporte-citas',
+            templateUrl: 'tpl/reporte-citas.html',
+            resolve: load([      
+              'angular/controllers/ReporteCitasCtrl.js'
+            ]) 
+          })
           .state('lockme', {
               url: '/lockme',
               templateUrl: 'tpl/page_lockme.html'
