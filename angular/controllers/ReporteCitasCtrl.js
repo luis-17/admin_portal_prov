@@ -139,6 +139,7 @@ app.controller('ReporteCitasCtrl', ['$scope', '$filter', '$uibModal', '$bootbox'
       CitaFactory.verCitaModal(arrParams); 
     }
     $scope.btnExportarListaExcel = function () {
+      console.log('excel xd');
 			var arrParams = {
 				titulo: 'LISTADO DE CITAS',
 				datos: {
