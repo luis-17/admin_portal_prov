@@ -3,10 +3,11 @@ class Model_cita extends CI_Model {
 	public function __construct()
 	{
 		parent::__construct();
-		$dbCitas = $this->load->database('citas', TRUE);
+		
 	}
 
 	public function m_cargar_citas($paramPaginate, $paramDatos){
+		$dbCitas = $this->load->database('citas', TRUE);
     $dbCitas->select("ci.idcita, ci.fecha_registro, ci.fecha_cita, ci.hora_inicio, ci.hora_fin, ci.medico, ci.especialidad, ci.estado_cita, 
 			ci.idcitaspring, cl.idcliente, cl.nombres, cl.apellido_paterno, cl.apellido_materno, cl.tipo_documento, cl.numero_documento, 
 			cl.correo, cl.telefono, ga.idgarante, ga.descripcion_gar");
@@ -44,6 +45,7 @@ class Model_cita extends CI_Model {
 	}
 
 	public function m_count_citas($paramPaginate, $paramDatos){
+		$dbCitas = $this->load->database('citas', TRUE);
 		$dbCitas->select('COUNT(*) AS contador');
 		$dbCitas->from('cita ci');
 		$dbCitas->join('cliente cl', 'ci.idcliente = cl.idcliente');
