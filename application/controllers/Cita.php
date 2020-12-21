@@ -21,7 +21,7 @@ class Cita extends CI_Controller {
 	{ 
 		$allInputs = json_decode(trim($this->input->raw_input_stream),true);
 		$paramPaginate = $allInputs['paginate'];
-		$paramDatos = $allInputs['filtro'];
+		$paramDatos = $allInputs['datos'];
 		$lista = $this->model_cita->m_cargar_citas($paramPaginate, $paramDatos);
 		$fCount = $this->model_cita->m_count_citas($paramPaginate, $paramDatos);
 		$arrListado = array();
@@ -82,7 +82,7 @@ class Cita extends CI_Controller {
 			$paramPaginate = $allInputs['paginate'];
 			$paramPaginate['firstRow'] = FALSE;
 			$paramPaginate['pageSize'] = FALSE;
-			$paramDatos = $allInputs['datos'];
+			$paramDatos = $allInputs['filtro'];
 			$nombre_reporte = 'citas_online';
 			$lista = $this->model_cita->m_cargar_citas($paramPaginate,$paramDatos);
 
