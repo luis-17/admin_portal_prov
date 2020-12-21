@@ -115,7 +115,7 @@ angular.module('app')
               }
             }
           });
-        }else if( arrParams.datos.salida == 'excel' ){
+        }else if( arrParams.salida == 'excel' ){
           blockUI.start('Preparando reporte');
           $http.post(arrParams.url, arrParams.datos)
             .success(function(data, status) {

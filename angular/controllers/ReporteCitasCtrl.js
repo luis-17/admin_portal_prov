@@ -146,10 +146,10 @@ app.controller('ReporteCitasCtrl', ['$scope', '$filter', '$uibModal', '$bootbox'
 					filtro: $scope.fBusqueda,
 					paginate: paginationOptions,
 					tituloAbv: 'LIST-CITA',
-          titulo: 'LISTADO DE CITAS',
-          salida: 'excel'
-				}
-			}
+					titulo: 'LISTADO DE CITAS'
+				},
+				salida: 'excel'
+			};
       arrParams.url = angular.patchURLCI + 'Cita/listado_citas_excel',
       ModalReporteFactory.getPopupReporte(arrParams);
     }
