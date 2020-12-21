@@ -20,7 +20,7 @@
             <label> {{fDataCita.fecha_cita}} </label>
         </div>
         <div class="form-group col-sm-6 mb-md">
-            <label class="control-label mb-n block"> Hora</label>
+            <label class="control-label mb-n block"> Hora de Cita</label>
             <label> {{fDataCita.hora}} </label>
         </div>
         <div class="form-group col-sm-6 mb-md">

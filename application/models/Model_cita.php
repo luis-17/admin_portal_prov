@@ -15,13 +15,13 @@ class Model_cita extends CI_Model {
     $dbCitas->from('cita ci');
 		$dbCitas->join('cliente cl', 'ci.idcliente = cl.idcliente');
 		$dbCitas->join('garante ga', 'ci.idgarante = ga.idgarante');
-		if($paramDatos['estado'] === 'ALL'){
+		if($paramDatos['estado']['id'] === 'ALL'){
 			$dbCitas->where_in('ci.estado', array(1, 0));
 		}
-		if($paramDatos['estado'] === '1'){
+		if($paramDatos['estado']['id'] === '1'){
 			$dbCitas->where_in('ci.estado', array(1));
 		}
-		if($paramDatos['estado'] === '0'){
+		if($paramDatos['estado']['id'] === '0'){
 			$dbCitas->where_in('ci.estado', array(0));
 		}
 		
@@ -50,13 +50,13 @@ class Model_cita extends CI_Model {
 		$dbCitas->from('cita ci');
 		$dbCitas->join('cliente cl', 'ci.idcliente = cl.idcliente');
 		$dbCitas->join('garante ga', 'ci.idgarante = ga.idgarante');
-		if($paramDatos['estado'] === 'ALL'){
+		if($paramDatos['estado']['id'] === 'ALL'){
 			$dbCitas->where_in('ci.estado', array(1, 0));
 		}
-		if($paramDatos['estado'] === '1'){
+		if($paramDatos['estado']['id'] === '1'){
 			$dbCitas->where_in('ci.estado', array(1));
 		}
-		if($paramDatos['estado'] === '0'){
+		if($paramDatos['estado']['id'] === '0'){
 			$dbCitas->where_in('ci.estado', array(0));
 		}
 		$dbCitas->where_in('cl.estado_pac', array(1));
