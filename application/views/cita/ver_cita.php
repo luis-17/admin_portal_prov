@@ -24,6 +24,10 @@
             <label> {{fDataCita.hora}} </label>
         </div>
         <div class="form-group col-sm-6 mb-md">
+            <label class="control-label mb-n block"> Fecha Anulación</label>
+            <label> {{fDataCita.fecha_anulacion}} </label>
+        </div>
+        <div class="form-group col-sm-6 mb-md">
             <label class="control-label mb-n block"> Tipo de documento</label>
             <label> {{fDataCita.tipo_documento}} </label>
         </div>

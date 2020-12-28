@@ -36,6 +36,7 @@ class Cita extends CI_Controller {
 			array_push($arrListado,
 				array(
 					'idcita' => $row['idcita'],
+					'fecha_anulacion' => $row['fecha_anulacion'],
 					'fecha_registro' => $row['fecha_registro'],
 					'fecha_cita' => darFormatoDMY($row['fecha_cita']),
 					'hora' => darFormatoHora($row['hora_inicio']).' - '.darFormatoHora($row['hora_fin']),

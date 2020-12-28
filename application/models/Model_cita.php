@@ -10,7 +10,7 @@ class Model_cita extends CI_Model {
 		$dbCitas = $this->load->database('citas', TRUE);
     $dbCitas->select("ci.idcita, ci.fecha_registro, ci.fecha_cita, ci.hora_inicio, ci.hora_fin, ci.medico, ci.especialidad, ci.estado_cita, 
 			ci.idcitaspring, cl.idcliente, cl.nombres, cl.apellido_paterno, cl.apellido_materno, cl.tipo_documento, cl.numero_documento, 
-			cl.correo, cl.telefono, ga.idgarante, ga.descripcion_gar");
+			ci.fecha_anulacion, cl.correo, cl.telefono, ga.idgarante, ga.descripcion_gar");
 		$dbCitas->select("CONCAT(COALESCE(cl.nombres,''), ' ', COALESCE(cl.apellido_paterno,''), ' ', COALESCE(cl.apellido_materno,'')) AS cliente",FALSE);
     $dbCitas->from('cita ci');
 		$dbCitas->join('cliente cl', 'ci.idcliente = cl.idcliente');
